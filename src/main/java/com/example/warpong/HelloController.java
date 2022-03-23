@@ -1,4 +1,4 @@
-package com.example.warpong2;
+package com.example.warpong;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

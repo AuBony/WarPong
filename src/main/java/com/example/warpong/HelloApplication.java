@@ -1,4 +1,4 @@
-package com.example.warpong2;
+package com.example.warpong;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
