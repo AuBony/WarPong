@@ -2,14 +2,20 @@ package GameEngine;
 
 public class Warrior {
 
-    public double x;
-    public double y;
-    public int hp;
+    int id;
+    //int tVelocity;
 
-    public Warrior(double x, double y, int hp) {
-        this.x = x;
-        this.y = y;
+    int x = 25;
+    int y = 250;
+
+    int hp = 10;
+
+    /*public Warrior(double x, double y, double height, double width, int hp, int id) {
+
+        this.id = id;
         this.hp = hp;
-    }
+        super(double x, double y, double height, double width)
+
+    }*/
 
 }

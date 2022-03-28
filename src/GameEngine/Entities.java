@@ -4,24 +4,14 @@ public class Entities {
 
     double x;
     double y;
-    double heighEntities;
+    double heightEntities;
     double widthEntities;
-    int hp;
 
-    public void entities(double x, double y, double heigh, double width, int hp){
+    public Entities(double x, double y, double height, double width){
         this.x = x;
         this.y = y;
-        this.heighEntities = heigh;
+        this.heightEntities = height;
         this.widthEntities = width;
-        this.hp = hp;
-    }
-
-    public double getHeigh() {
-        return heighEntities;
-    }
-
-    public double getWidth() {
-        return widthEntities;
     }
 
     public double getX() {
@@ -32,7 +22,25 @@ public class Entities {
         return y;
     }
 
-    public int getHp() {
-        return hp;
+    public double getWidth() {
+        return widthEntities;
     }
+
+    public double getHeight() {
+        return heightEntities;
+    }
+
+/*    public double getHeigh() {
+        return heightEntities;
+    }
+
+
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }*/
 }

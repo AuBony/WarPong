@@ -5,7 +5,7 @@ import javafx.scene.input.KeyEvent;
 
 import java.awt.*;
 
-public class Player extends Entities {
+public class Player  {
 
     int id;
     int tVelocity;
@@ -20,18 +20,18 @@ public class Player extends Entities {
     int hpPlayer2 = 10;
 
 
-    final int widthPlayers = (int) widthEntities;
-    final int heighPlayers = (int) heighEntities;
-    Dimension hitboxPlayers = new Dimension(widthPlayers,heighPlayers);
+/*    final int widthPlayers = (int) widthEntities;
+    final int heighPlayers = (int) heightEntities;
+    Dimension hitboxPlayers = new Dimension(widthPlayers,heighPlayers);*/
 
 
 
-    @Override
-    public void entities(double x, double y, double heigh, double width, int hp) {
-        super.entities(x, y, heigh, width, hp);
+    /*@Override
+    public void Entities(double x, double y, double height, double width, int hp) {
+        super.Entities(x, y, height, width, hp);
     }
     Entities player1 = new Entities();
-    Entities player2 = new Entities();
+    Entities player2 = new Entities();*/
 
     public void keyPressed(KeyEvent e){
 
