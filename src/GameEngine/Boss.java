@@ -5,14 +5,13 @@ import javafx.scene.image.Image;
 public class Boss extends Entities{
 
     int hp = 100;
-    int heightBoss = 70;
-    int widthBoss = 60;
 
-    public Boss(double x, double y, double heightBoss, double widthBoss){
-        super(x, y, heightBoss, widthBoss);
-        this.x = x - widthBoss/2;
-        this.y = y - heightBoss/2;
-
+    public Boss(int Rwidth, int Rheight){
+        super();
+        this.x = (double) Rwidth/2 - 100;
+        this.y = (double) Rheight/2 - 79;
+        this.widthEntities = 200;
+        this.heightEntities = 158;
     }
     Image headBoss = new Image("Resources/Sprites/dragon_100x79.png");
 
