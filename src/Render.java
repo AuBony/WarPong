@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Render extends Application {
@@ -45,13 +46,13 @@ public class Render extends Application {
 
             //Add fond
             Image fond = new Image ("Resources/Sprites/Fond.png");
-            gc.drawImage(fond, 50, 50, width-100, height-100);
+            gc.drawImage(fond, 50, 50, Rwidth-100, Rheight-100);
 
 
             //gc.setFill(Color.WHITE);
 
             //Add Boss
-            Boss boss = new Boss((width/2),(height/2), 70, 60);
+            Boss boss = new Boss((Rwidth/2),(Rheight/2));
             Image ImBoss = boss.getHeadBoss();
             gc.drawImage(ImBoss, boss.getX(), boss.getY(), boss.getWidth(), boss.getHeight());
             addBoss(gc);
