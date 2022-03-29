@@ -2,11 +2,13 @@ package GameEngine;
 
 public class Entities {
 
+    //Variables
     double x;
     double y;
     double heightEntities;
     double widthEntities;
 
+    //Constructor
     public Entities(double x, double y, double height, double width){
         this.x = x;
         this.y = y;
@@ -14,6 +16,7 @@ public class Entities {
         this.widthEntities = width;
     }
 
+    //Get
     public double getX() {
         return x;
     }
@@ -30,7 +33,16 @@ public class Entities {
         return heightEntities;
     }
 
-/*    public double getHeigh() {
+
+    //Set
+    public void setHeightEntities(double heightEntities) {
+        this.heightEntities = heightEntities;
+    }
+
+    public void setWidthEntities(double widthEntities) {
+        this.widthEntities = widthEntities;
+    }
+    /*    public double getHeigh() {
         return heightEntities;
     }
 
