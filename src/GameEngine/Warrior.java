@@ -34,6 +34,11 @@ public class Warrior extends Entities{
         }
     }
 
+    public static void move(int type, int b){
+        y = y - b;
+    }
+
+    /*public Warrior(double x, double y, double height, double width, int hp, int id) {
     //Get
     public String getType() {
         return type;
@@ -42,12 +47,6 @@ public class Warrior extends Entities{
     //Method
     public Image getSkinWarrior() {
         return this.skinWarrior;
-    }
-
-    //Test
-    public static void main(String[] args) {
-       // Warrior J1 = new Warrior(10,10,45,55,"joueur 1");
-
     }
 
 }
