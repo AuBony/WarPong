@@ -6,44 +6,25 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Render extends Application {
 
     //Variables
-    static int width = 1000;
-    static int height = 600;
+    static int Rwidth = 1200;
+    static int Rheight = 700;
 
     //Method
     public void addBoss(GraphicsContext gc){
-            Boss boss = new Boss(width/2, height/2, 79, 100);
+            Boss boss = new Boss(Rwidth, Rheight);
             Image ImBoss = boss.getHeadBoss();
             gc.drawImage(ImBoss, boss.getX(), boss.getY(), boss.getWidth(), boss.getHeight());
     }
     public void addWarrior(GraphicsContext gc, String J){
-            String type;
-            double x;
-            double y = height/2;
-
-            if(J.equals("J1")){
-                    type = "joueur 1";
-                    x = 0;
-            }
-            else if(J.equals("J2")){
-                    type = "joueur 2";
-                    x = width - 55;
-            }
-            else{
-                    type = "error : invalid type of player";
-                    x = 0;
-                    y = 0;
-            }
-            Warrior warrior = new Warrior(x, y, 45, 55, type);
+            Warrior warrior = new Warrior(Rwidth, Rheight, J);
             Image ImWarrior = warrior.getSkinWarrior();
-            gc.drawImage(ImWarrior, warrior.getX(), warrior.getY(), warrior.getHeight(), warrior.getWidth());
+            gc.drawImage(ImWarrior, warrior.getX(), warrior.getY(), warrior.getWidth(), warrior.getHeight());
     }
-
 
     @Override
     public void start(Stage stage) {
@@ -52,12 +33,11 @@ public class Render extends Application {
             Group root = new Group();
 
             //Create a scene
-            Scene scene = new Scene(root, width, height);
+            Scene scene = new Scene(root, Rwidth, Rheight);
             stage.setScene(scene); //Add scene to stage
-            //scene.setFill(Color.WHITE); //new RadialGradient(0, 0, 500, 300, 500, false, CycleMethod.NO_CYCLE, new Stop(0, Color.grayRgb(60)), new Stop(1, Color.GREY))
 
             //Create a canvas
-            Canvas canvas = new Canvas(width, height);
+            Canvas canvas = new Canvas(Rwidth, Rheight);
             root.getChildren().add(canvas);
             GraphicsContext gc = canvas.getGraphicsContext2D();
 
