@@ -11,11 +11,18 @@ public class GE {
     int Rwidth;
     int Rheight;
     GraphicsContext gc;
+    Boss boss;
+    Warrior J1;
+    Warrior J2;
 
     public GE(int rwidth, int rheight, GraphicsContext gc) {
         Rwidth = rwidth;
         Rheight = rheight;
         this.gc = gc;
+    }
+    //Get
+    public Boss getBoss() {
+        return boss;
     }
 
     //addEntities
