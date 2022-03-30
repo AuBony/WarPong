@@ -8,6 +8,7 @@ public class Boss extends Character {
         super();
         this.hp = 100;
         this.velocity = 1;
+        this.type = "Boss";
         this.x = (double) Rwidth/2 - 100;
         this.y = (double) Rheight/2 - 79;
         this.widthEntities = 200;

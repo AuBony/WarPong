@@ -14,6 +14,7 @@ public class Warrior extends Character {
         this.velocity = 10;
         this.hp = 10;
         this.y = (double) Rheight/2;
+        this.type = type;
         switch (type) {
             case "J1" -> {
                 skinWarrior = new Image("Resources/Sprites/thomasus.png");

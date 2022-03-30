@@ -9,8 +9,6 @@ public class FireBall extends Entities {
 
     public FireBall(String s, double x, double y){
         super();
-        this.x = x;
-        this.y = y;
         switch (s) {
             case "J1" -> {
                 skinFireBall = new Image("Resources/Sprites/FBJ1.png");
@@ -34,6 +32,9 @@ public class FireBall extends Entities {
                 this.widthEntities = 100;
             }
         }
+        this.y = y - this.heightEntities/2;
+        this.x = x - this.widthEntities/2;
+
     }
 
     //Get

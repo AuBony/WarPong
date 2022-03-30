@@ -1,4 +1,5 @@
 import GameEngine.Entity.Boss;
+import GameEngine.Entity.Character;
 import GameEngine.Entity.FireBall;
 import GameEngine.Entity.Warrior;
 import javafx.application.Application;
@@ -7,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -17,20 +19,42 @@ public class Render extends Application {
     static int Rheight = 700;
 
     //Method
-    public void addBoss(GraphicsContext gc){
+    public Boss addBoss(GraphicsContext gc){
             Boss boss = new Boss(Rwidth, Rheight);
             Image ImBoss = boss.getHeadBoss();
             gc.drawImage(ImBoss, boss.getX(), boss.getY(), boss.getWidth(), boss.getHeight());
+            return (boss);
     }
-    public void addWarrior(GraphicsContext gc, String J){
+    public Warrior addWarrior(GraphicsContext gc, String J){
             Warrior warrior = new Warrior(Rwidth, Rheight, J);
             Image ImWarrior = warrior.getSkinWarrior();
             gc.drawImage(ImWarrior, warrior.getX(), warrior.getY(), warrior.getWidth(), warrior.getHeight());
+            return(warrior);
     }
-    public void addFireBall(GraphicsContext gc, String s, double x, double y){
-        FireBall fireBall = new FireBall(s, x, y);
+    public void addFireBall(GraphicsContext gc, Character c, double x, double y){
+        FireBall fireBall = new FireBall(c.getType(), x, y);
         Image Imfireball = fireBall.getSkinFireBall();
-        gc.drawImage(Imfireball, fireBall.getX(), fireBall.getY(), fireBall.getWidth(), fireBall.getHeight());
+        double offsetx = 0;
+        double offsety = 0;
+        switch(c.getType()){
+            case "J1" -> {
+                offsetx = c.getWidth();
+                offsety = c.getHeight()/2;
+            }
+            case "J2" -> {
+                offsetx = 0;
+                offsety = c.getHeight()/2;
+            }
+            case "Boss" -> {
+                offsetx = c.getWidth()/2;
+                offsety = c.getHeight() - 10; // Fireball sort au niveau de la bouche du dragon
+            }
+            default ->{}
+        }
+
+        gc.drawImage(Imfireball,
+                fireBall.getX() + offsetx, fireBall.getY() + offsety,
+                fireBall.getWidth(), fireBall.getHeight());
     }
 
     @Override
@@ -58,14 +82,19 @@ public class Render extends Application {
             //gc.setFill(Color.WHITE);
 
             //Add Boss
-            Boss boss = new Boss((Rwidth/2),(Rheight/2));
+/*            Boss bossfake = new Boss((Rwidth/2),(Rheight/2));
             Image ImBoss = boss.getHeadBoss();
-            gc.drawImage(ImBoss, boss.getX(), boss.getY(), boss.getWidth(), boss.getHeight());
-            addBoss(gc);
+            gc.drawImage(ImBoss, boss.getX(), boss.getY(), boss.getWidth(), boss.getHeight());*/
+            Boss boss = addBoss(gc);
 
             //Add Warrior
-            addWarrior(gc, "J1");
-            addWarrior(gc, "J2");
+            Warrior J1 = addWarrior(gc, "J1");
+            Warrior J2 = addWarrior(gc, "J2");
+
+            //Add FireBall
+            addFireBall(gc, J1, J1.getX(), J1.getY());
+            addFireBall(gc, J2, J2.getX(), J2.getY());
+            addFireBall(gc, boss, boss.getX(), boss.getY());
 
             //Timeloop
 /*            final long startNanoTime = System.nanoTime();
