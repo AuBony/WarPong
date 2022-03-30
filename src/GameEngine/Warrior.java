@@ -8,7 +8,7 @@ public class Warrior extends Entities{
     int hp = 10;
     int velocity = 10;
     String type;
-    Image skinWarrior;
+    static Image skinWarrior;
 
     //Constructor
     public Warrior(int Rwidth, int Rheight, String type){
@@ -34,19 +34,16 @@ public class Warrior extends Entities{
         }
     }
 
-    public static void move(int type, int b){
-        y = y - b;
-    }
 
-    /*public Warrior(double x, double y, double height, double width, int hp, int id) {
+    //public Warrior(double x, double y, double height, double width, int hp, int id) {
     //Get
     public String getType() {
         return type;
     }
 
     //Method
-    public Image getSkinWarrior() {
-        return this.skinWarrior;
+    public static Image getSkinWarrior() {
+        return skinWarrior;
     }
 
 }

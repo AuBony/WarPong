@@ -3,10 +3,10 @@ package GameEngine;
 public class Entities {
 
     //Variables
-    protected double x;
-    protected double y;
-    double heightEntities;
-    double widthEntities;
+    protected static double x;
+    protected static double y;
+    static double heightEntities;
+    static double widthEntities;
 
     //Constructor
     public Entities(double height, double width){
@@ -16,19 +16,19 @@ public class Entities {
     public Entities(){ }
 
     //Get
-    public double getX() {
+    public static double getX() {
         return x;
     }
 
-    public double getY() {
+    public static double getY() {
         return y;
     }
 
-    public double getWidth() {
+    public static double getWidth() {
         return widthEntities;
     }
 
-    public double getHeight() {
+    public static double getHeight() {
         return heightEntities;
     }
 
@@ -43,7 +43,7 @@ public class Entities {
     }
 
     public void setX(double x){this.x = x;}
-    public void setY(double y){this.y = y;}
+    public static void setY(double coordY){coordY = y;}
 
     /*    public double getHeigh() {
         return heightEntities;
