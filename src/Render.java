@@ -1,5 +1,6 @@
-import GameEngine.Boss;
-import GameEngine.Warrior;
+import GameEngine.Entity.Boss;
+import GameEngine.Entity.FireBall;
+import GameEngine.Entity.Warrior;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -25,6 +26,11 @@ public class Render extends Application {
             Warrior warrior = new Warrior(Rwidth, Rheight, J);
             Image ImWarrior = warrior.getSkinWarrior();
             gc.drawImage(ImWarrior, warrior.getX(), warrior.getY(), warrior.getWidth(), warrior.getHeight());
+    }
+    public void addFireBall(GraphicsContext gc, String s, double x, double y){
+        FireBall fireBall = new FireBall(s, x, y);
+        Image Imfireball = fireBall.getSkinFireBall();
+        gc.drawImage(Imfireball, fireBall.getX(), fireBall.getY(), fireBall.getWidth(), fireBall.getHeight());
     }
 
     @Override

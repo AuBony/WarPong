@@ -1,6 +1,8 @@
-package GameEngine;
+package GameEngine.Entity;
 
-public class Entities {
+import GameEngine.Physic.Move;
+
+public abstract class Entities implements Move {
 
     //Variables
     protected double x;
@@ -33,6 +35,7 @@ public class Entities {
     }
 
 
+
     //Set
     public void setHeightEntities(double heightEntities) {
         this.heightEntities = heightEntities;
@@ -44,6 +47,7 @@ public class Entities {
 
     public void setX(double x){this.x = x;}
     public void setY(double y){this.y = y;}
+
 
     /*    public double getHeigh() {
         return heightEntities;
