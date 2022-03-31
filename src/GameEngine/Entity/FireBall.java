@@ -2,9 +2,11 @@ package GameEngine.Entity;
 
 import javafx.scene.image.Image;
 
+
 public class FireBall extends Entities {
     private final Image skinFireBall;
-    private String dir;
+    private final String castBy;
+    private int damage;
 
     public FireBall(Character c, double x, double y, String dir){
         super();
@@ -15,17 +17,20 @@ public class FireBall extends Entities {
                 this.heightEntities = 28;
                 this.widthEntities = 36;
                 this.velocity = 5;
+                this.damage = 5;
             }
             case "J2" -> {
                 skinFireBall = new Image("Resources/Sprites/FBJ2.png");
                 this.heightEntities = 28;
                 this.widthEntities = 36;
                 this.velocity = -5;
+                this.damage = 5;
             }
             case "Boss" -> {
                 skinFireBall = new Image("Resources/Sprites/FBBoss.png");
                 this.heightEntities = 40;
                 this.widthEntities = 40;
+                this.damage = 2;
                 if(dir.equals("G")){
                     this.velocity = -2;
                 }else if(dir.equals("D")){
@@ -38,21 +43,20 @@ public class FireBall extends Entities {
                 this.widthEntities = 100;
             }
         }
+        this.castBy = c.getType();
         this.y = y - this.heightEntities/2;
         this.x = x - this.widthEntities/2;
-        this.dir = dir;
     }
 
     //Get
     public Image getSkinFireBall() {
         return skinFireBall;
     }
-    public String getDir() {
-        return dir;
+    public String getCastBy() {
+        return castBy;
     }
-    //Set
-    public void setDir(String dir) {
-        this.dir = dir;
+    public int getDamage() {
+        return damage;
     }
 
     //Method

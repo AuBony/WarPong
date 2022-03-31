@@ -20,13 +20,13 @@ public class Warrior extends Character {
                 skinWarrior = new Image("Resources/Sprites/thomasus.png");
                 this.setHeightEntities(70);
                 this.setWidthEntities(60);
-                this.x = 5;
+                this.x = 10;
             }
             case "J2" -> {
                 skinWarrior = new Image("Resources/Sprites/odreya.png");
                 this.setHeightEntities(70);
                 this.setWidthEntities(52);
-                this.x = Rwidth - 55;
+                this.x = Rwidth - 60;
             }
             default -> {
                 skinWarrior = new Image("Resources/Sprites/dragon_100x79.png");

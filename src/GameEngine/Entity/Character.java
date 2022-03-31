@@ -10,4 +10,14 @@ public abstract class Character extends Entities {
     public String getType() {
         return type;
     }
+
+    public int getHp() {
+        return hp;
+    }
+
+    //Set
+
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
 }

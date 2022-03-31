@@ -14,6 +14,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javafx.geometry.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,11 +81,42 @@ public class Render extends Application {
                 lfb.add(FBBD);
             }
 
+            //Hitbox
+            Rectangle2D hitboxBoss = new Rectangle2D(boss.getX(),boss.getY(), boss.getWidth(), boss.getHeight());
+            Rectangle2D hitboxJ1 = new Rectangle2D(J1.getX(), J1.getY(), J1.getWidth(), J1.getHeight());
+            Rectangle2D hitboxJ2 = new Rectangle2D(J2.getX(), J2.getY(), J2.getWidth(), J2.getHeight());
+
             //Mvt Fireball
             for (FireBall f : lfb){
                 f.setX(f.getX() + f.getVelocity());
+                //Out of bound
                 if (f.getX() < 0 | f.getX() > Rwidth){
                     lfb.remove(f);
+                    break;
+                }
+                //Collision
+                Rectangle2D hitboxf = new Rectangle2D(f.getX(), f.getY(), f.getWidth(), f.getHeight());
+                if(f.getCastBy().equals("Boss")) {
+                    if (hitboxf.intersects(hitboxJ1)){
+                        J1.setHp(J1.getHp() - f.getDamage());
+                        System.out.println("HP J1 : " + J1.getHp());
+                        lfb.remove(f);
+                        break;
+                }
+                    if (hitboxf.intersects(hitboxJ2)){
+                        J2.setHp(J2.getHp() - f.getDamage());
+                        System.out.println("HP J2 : " + J2.getHp());
+                        lfb.remove(f);
+                        break;
+                    }
+                }
+                if(f.getCastBy().equals("J1") | f.getCastBy().equals("J2")){
+                    if (hitboxf.intersects(hitboxBoss)){
+                        boss.setHp(boss.getHp() - f.getDamage());
+                        System.out.println("HP Boss : " + boss.getHp());
+                        lfb.remove(f);
+                        break;
+                    }
                 }
             }
 
@@ -123,6 +155,9 @@ public class Render extends Application {
             for (FireBall f : lfb){
                 gc.drawImage(f.getSkinFireBall(), f.getX(), f.getY(), f.getWidth(), f.getHeight());
             }
+
+            //HP
+            stage.setTitle("J1 : " + J1.getHp() + "     " + boss.getHp() + "     " + J2.getHp() + " : J2");
         }));
             loop.setCycleCount(Timeline.INDEFINITE);
             loop.play();
