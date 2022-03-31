@@ -74,9 +74,6 @@ public class GE {
         J1 = addWarrior("J1");
         J2 = addWarrior("J2");
         boss = addBoss();
-        addFireBall(J1, J1.getX(), J1.getY());
-        addFireBall(J2, J2.getX(), J2.getY());
-        addFireBall(boss, boss.getX(), boss.getY());
     }
 
     //Tick

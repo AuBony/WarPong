@@ -15,6 +15,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Render extends Application {
 
@@ -24,6 +25,9 @@ public class Render extends Application {
     GE ge;
     public static ArrayList<KeyCode> inputString = new ArrayList<>();
     Image fond = new Image("Resources/Sprites/fond.png");
+    long time;
+    int fps = 30;
+    int cadence = 2000;
 
     //Method
     @Override
@@ -57,12 +61,32 @@ public class Render extends Application {
         Warrior J1 = ge.getJ1();
         Warrior J2 = ge.getJ2();
         Boss boss = ge.getBoss();
-        FireBall FBJ1 = ge.addFireBall(J1, J1.getX(), J1.getY());
-        FireBall FBJ2 = ge.addFireBall(J2, J2.getX(), J2.getY());
-        FireBall FBBG = ge.addFireBallBoss(boss, boss.getX(), boss.getY(), "G");
-        FireBall FBBD = ge.addFireBallBoss(boss, boss.getX(), boss.getY(), "D");
+        List<FireBall> lfb = new ArrayList<>();
 
-        Timeline loop = new Timeline(new KeyFrame(Duration.millis(30), arg -> {
+
+        Timeline loop = new Timeline(new KeyFrame(Duration.millis(fps), arg -> {
+            time += 1;
+
+            //Test
+            if ((time % Math.floor((float) cadence / fps)) == 0){
+                System.out.println(time);
+                FireBall FBJ1 = ge.addFireBall(J1, J1.getX(), J1.getY());
+                FireBall FBJ2 = ge.addFireBall(J2, J2.getX(), J2.getY());
+                FireBall FBBG = ge.addFireBallBoss(boss, boss.getX(), boss.getY(), "G");
+                FireBall FBBD = ge.addFireBallBoss(boss, boss.getX(), boss.getY(), "D");
+                lfb.add(FBJ1);
+                lfb.add(FBJ2);
+                lfb.add(FBBG);
+                lfb.add(FBBD);
+            }
+
+            //Mvt Fireball
+            for (FireBall f : lfb){
+                f.setX(f.getX() + f.getVelocity());
+                if (f.getX() < 0 | f.getX() > Rwidth){
+                    lfb.remove(f);
+                }
+            }
 
             //Mvt Warrior
             if (inputString.contains(KeyCode.S)) {
@@ -91,21 +115,14 @@ public class Render extends Application {
                     boss.setY(boss.getY() + boss.getVelocity());
                 }
 
-            //Mvt Fireball
-            FBJ1.setX(FBJ1.getX() + FBJ1.getVelocity());
-            FBJ2.setX(FBJ2.getX() + FBJ2.getVelocity());
-            FBBG.setX(FBBG.getX() + FBBG.getVelocity());
-            FBBD.setX(FBBD.getX() + FBBD.getVelocity());
-
             //Draw
             gc.drawImage(fond, 0, 0, Rwidth, Rheight);
             gc.drawImage(boss.getHeadBoss(), boss.getX(), boss.getY(), boss.getWidth(), boss.getHeight());
             gc.drawImage(J1.getSkinWarrior(), J1.getX(), J1.getY(), J1.getWidth(), J1.getHeight());
             gc.drawImage(J2.getSkinWarrior(), J2.getX(), J2.getY(), J2.getWidth(), J2.getHeight());
-            gc.drawImage(FBJ1.getSkinFireBall(), FBJ1.getX(), FBJ1.getY(), FBJ1.getWidth(), FBJ1.getHeight());
-            gc.drawImage(FBJ2.getSkinFireBall(), FBJ2.getX(), FBJ2.getY(), FBJ2.getWidth(), FBJ2.getHeight());
-            gc.drawImage(FBBG.getSkinFireBall(), FBBG.getX(), FBBG.getY(), FBBG.getWidth(), FBBG.getHeight());
-            gc.drawImage(FBBD.getSkinFireBall(), FBBD.getX(), FBBD.getY(), FBBD.getWidth(), FBBD.getHeight());
+            for (FireBall f : lfb){
+                gc.drawImage(f.getSkinFireBall(), f.getX(), f.getY(), f.getWidth(), f.getHeight());
+            }
         }));
             loop.setCycleCount(Timeline.INDEFINITE);
             loop.play();
