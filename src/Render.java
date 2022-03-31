@@ -5,6 +5,7 @@ import GameEngine.GE;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -12,6 +13,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.geometry.Rectangle2D;
@@ -29,12 +32,34 @@ public class Render extends Application {
     long time;
     int fps = 30;
     int cadence = 2000;
+    Timeline loop;
+
+    //Defeat
+    Text t = new Text();
 
     //Method
     @Override
     public void start(Stage stage) {
         //Create Graphic
+
+        Text defeat = new Text("TRY AGAIN !");
+        defeat.setFont(Font.font("Consola", 70));
+        defeat.setFill(Color.RED);
+        defeat.setTextOrigin(VPos.CENTER);
+        defeat.setLayoutX((double) Rwidth/3);
+        defeat.setLayoutY((double) Rheight/3);
+        defeat.setVisible(false);
+
+        Text win = new Text("GOD LIKE !");
+        win.setFont(Font.font("Consola", 70));
+        win.setFill(Color.RED);
+        win.setTextOrigin(VPos.CENTER);
+        win.setLayoutX((double) Rwidth/3);
+        win.setLayoutY((double) Rheight/3);
+        win.setVisible(false);
+
         Group root = new Group();
+
         stage.setTitle("W A R  P O N G");
         Scene scene = new Scene(root, Rwidth, Rheight);
         stage.setScene(scene); //Add scene to stage
@@ -43,6 +68,7 @@ public class Render extends Application {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.setFill(Color.BLACK);
         ge = new GE(Rwidth,Rheight);
+        root.getChildren().addAll(defeat,win);
 
         //Controls
         scene.setOnKeyPressed(e -> {
@@ -65,7 +91,7 @@ public class Render extends Application {
         List<FireBall> lfb = new ArrayList<>();
 
 
-        Timeline loop = new Timeline(new KeyFrame(Duration.millis(fps), arg -> {
+        loop = new Timeline(new KeyFrame(Duration.millis(fps), arg -> {
             time += 1;
 
             //Test
@@ -155,13 +181,22 @@ public class Render extends Application {
             for (FireBall f : lfb){
                 gc.drawImage(f.getSkinFireBall(), f.getX(), f.getY(), f.getWidth(), f.getHeight());
             }
-
-            //HP
+                 //HP
             stage.setTitle("J1 : " + J1.getHp() + "     " + boss.getHp() + "     " + J2.getHp() + " : J2");
+
+            //Finishing
+            if (boss.getHp() <= 0){
+                win.setVisible(true);
+                this.loop.stop();
+            }
+            if (J1.getHp() <= 0 && J2.getHp() <= 0){
+                defeat.setVisible(true);
+                this.loop.stop();
+//
+            }
         }));
             loop.setCycleCount(Timeline.INDEFINITE);
             loop.play();
-
             stage.show();
             }
-        }
+}
