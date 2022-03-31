@@ -11,9 +11,9 @@ public class GE {
     int Rwidth;
     int Rheight;
     GraphicsContext gc;
-    Boss boss;
-    Warrior J1;
-    Warrior J2;
+    private Boss boss;
+    private Warrior J1;
+    private Warrior J2;
 
     public GE(int rwidth, int rheight, GraphicsContext gc) {
         Rwidth = rwidth;
@@ -25,18 +25,20 @@ public class GE {
         return boss;
     }
 
+    public Warrior getJ1() {
+        return J1;
+    }
+
+    public Warrior getJ2() {
+        return J2;
+    }
+
     //addEntities
     public Boss addBoss(GraphicsContext gc){
-        Boss boss = new Boss(Rwidth, Rheight);
-        Image ImBoss = boss.getHeadBoss();
-        gc.drawImage(ImBoss, boss.getX(), boss.getY(), boss.getWidth(), boss.getHeight());//TODO à mettre dans le render
-        return (boss);
+        return (new Boss(Rwidth, Rheight));
     }
     public Warrior addWarrior(GraphicsContext gc, String J){
-        Warrior warrior = new Warrior(Rwidth, Rheight, J);
-        Image ImWarrior = warrior.getSkinWarrior();
-        gc.drawImage(ImWarrior, warrior.getX(), warrior.getY(), warrior.getWidth(), warrior.getHeight());//TODO à mettre dans le render
-        return(warrior);
+        return(new Warrior(Rwidth, Rheight, J));
     }
     public void addFireBall(GraphicsContext gc, Character c, double x, double y){
         FireBall fireBall = new FireBall(c.getType(), x, y);
@@ -66,9 +68,9 @@ public class GE {
 
     //Initialisation
     public void init(){
-        Warrior J1 = addWarrior(gc, "J1");
-        Warrior J2 = addWarrior(gc, "J2");
-        Boss boss = addBoss(gc);
+        J1 = addWarrior(gc, "J1");
+        J2 = addWarrior(gc, "J2");
+        boss = addBoss(gc);
         addFireBall(gc, J1, J1.getX(), J1.getY());
         addFireBall(gc, J2, J2.getX(), J2.getY());
         addFireBall(gc, boss, boss.getX(), boss.getY());

@@ -8,6 +8,9 @@ public abstract class Character extends Entities {
     protected int velocity;
 
     //Get
+    public int getVelocity() {
+        return velocity;
+    }
 
     public String getType() {
         return type;

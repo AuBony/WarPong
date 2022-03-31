@@ -18,14 +18,14 @@ public class Warrior extends Character {
         switch (type) {
             case "J1" -> {
                 skinWarrior = new Image("Resources/Sprites/thomasus.png");
-                this.setHeightEntities(50);
-                this.setWidthEntities(43);
+                this.setHeightEntities(70);
+                this.setWidthEntities(60);
                 this.x = 5;
             }
             case "J2" -> {
                 skinWarrior = new Image("Resources/Sprites/odreya.png");
-                this.setHeightEntities(50);
-                this.setWidthEntities(37);
+                this.setHeightEntities(70);
+                this.setWidthEntities(52);
                 this.x = Rwidth - 55;
             }
             default -> {
@@ -47,12 +47,6 @@ public class Warrior extends Character {
     }
 
     //Method
-
-    //Test
-    public static void main(String[] args) {
-       // Warrior J1 = new Warrior(10,10,45,55,"joueur 1");
-    }
-
     @Override
     public void move(String type, double x, double y) {
 

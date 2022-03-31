@@ -5,10 +5,10 @@ import GameEngine.Physic.Move;
 public abstract class Entities implements Move {
 
     //Variables
-    protected static double x;
-    protected static double y;
-    static double heightEntities;
-    static double widthEntities;
+    protected double x;
+    protected double y;
+    double heightEntities;
+    double widthEntities;
 
     //Constructor
     public Entities(double height, double width){
@@ -18,19 +18,19 @@ public abstract class Entities implements Move {
     public Entities(){ }
 
     //Get
-    public static double getX() {
+    public double getX() {
         return x;
     }
 
-    public static double getY() {
+    public double getY() {
         return y;
     }
 
-    public static double getWidth() {
+    public double getWidth() {
         return widthEntities;
     }
 
-    public static double getHeight() {
+    public double getHeight() {
         return heightEntities;
     }
 
@@ -46,7 +46,7 @@ public abstract class Entities implements Move {
     }
 
     public void setX(double x){this.x = x;}
-    public static void setY(double coordY){coordY = y;}
+    public void setY(double y){this.y = y;}
 
 
     /*    public double getHeigh() {
