@@ -28,19 +28,25 @@ public class Render extends Application {
     int Rheight = 700;
     GE ge;
     public static ArrayList<KeyCode> inputString = new ArrayList<>();
-    Image fond = new Image("Resources/Sprites/fond.png");
+    Image fond;
+    int choixMap;
+    Image fond2 = new Image("Resources/Sprites/fond Japonais.png");
+    Image fond3 = new Image("Resources/Sprites/fond.png");
+    Image fond1 = new Image("Resources/Sprites/fond fantasy.png");
+    Image winD = new Image("Resources/Sprites/win.png");
+    Image defeatD = new Image("Resources/Sprites/defeat.png");
+
     long time;
     int fps = 30;
     int cadence = 2000;
     Timeline loop;
 
-    //Defeat
-    Text t = new Text();
-
     //Method
     @Override
     public void start(Stage stage) {
         //Create Graphic
+
+        choixMap = (int) Math.floor(1+ Math.random()*2);
 
         Text defeat = new Text("TRY AGAIN !");
         defeat.setFont(Font.font("Consola", 70));
@@ -94,9 +100,18 @@ public class Render extends Application {
         loop = new Timeline(new KeyFrame(Duration.millis(fps), arg -> {
             time += 1;
 
-            //Test
+            //Compteur de temps
             if ((time % Math.floor((float) cadence / fps)) == 0){
-                System.out.println(time);
+                //COOP
+                if (inputString.contains(KeyCode.LEFT)) {
+                    J2.setHp(J2.getHp() -1);
+                    J1.setHp(J1.getHp() + 1);
+                }
+                if (inputString.contains(KeyCode.Q)) {
+                    J1.setHp(J1.getHp() -1);
+                    J2.setHp(J2.getHp() + 1);
+                }
+                //Génération des boules de feu
                 FireBall FBJ1 = ge.addFireBall(J1, J1.getX(), J1.getY());
                 FireBall FBJ2 = ge.addFireBall(J2, J2.getX(), J2.getY());
                 FireBall FBBG = ge.addFireBallBoss(boss, boss.getX(), boss.getY(), "G");
@@ -105,6 +120,21 @@ public class Render extends Application {
                 lfb.add(FBJ2);
                 lfb.add(FBBG);
                 lfb.add(FBBD);
+            }
+            if ((time % Math.floor((float) (4*cadence) / fps)) == 0){
+
+                int atkSpe = (int) Math.floor(1+ Math.random()*2);
+                if (atkSpe == 1){
+                    FireBall FBBGspe = ge.addSpecialFireBallBoss(boss, boss.getX(), boss.getY(), "G");
+                    lfb.add(FBBGspe);}
+                if (atkSpe == 2){
+                    FireBall FBBDspe = ge.addSpecialFireBallBoss(boss, boss.getX(), boss.getY(), "D");
+                    lfb.add(FBBDspe);}
+                if (atkSpe == 3){
+                    FireBall FBBDspe2 = ge.addSpecialFireBallBoss(boss, boss.getX(), boss.getY(), "D");
+                    FireBall FBBGspe2 = ge.addSpecialFireBallBoss(boss, boss.getX(), boss.getY(), "G");
+                    lfb.add(FBBGspe2);
+                    lfb.add(FBBDspe2);}
             }
 
             //Hitbox
@@ -174,7 +204,9 @@ public class Render extends Application {
                 }
 
             //Draw
-            gc.drawImage(fond, 0, 0, Rwidth, Rheight);
+            if (choixMap == 1){gc.drawImage(fond1, 0, 0, Rwidth, Rheight);}
+            if (choixMap == 2){gc.drawImage(fond2, 0, 0, Rwidth, Rheight);}
+            if (choixMap == 3){gc.drawImage(fond3, 0, 0, Rwidth, Rheight);}
             gc.drawImage(boss.getHeadBoss(), boss.getX(), boss.getY(), boss.getWidth(), boss.getHeight());
             gc.drawImage(J1.getSkinWarrior(), J1.getX(), J1.getY(), J1.getWidth(), J1.getHeight());
             gc.drawImage(J2.getSkinWarrior(), J2.getX(), J2.getY(), J2.getWidth(), J2.getHeight());
@@ -188,11 +220,13 @@ public class Render extends Application {
             if (boss.getHp() <= 0){
                 win.setVisible(true);
                 this.loop.stop();
+                gc.drawImage(winD, 0, 0, Rwidth, Rheight);
             }
             if (J1.getHp() <= 0 && J2.getHp() <= 0){
                 defeat.setVisible(true);
                 this.loop.stop();
-//
+                gc.drawImage(defeatD, 0, 0, Rwidth, Rheight);
+
             }
         }));
             loop.setCycleCount(Timeline.INDEFINITE);

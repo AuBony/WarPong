@@ -68,6 +68,15 @@ public class GE {
         return new FireBall(c, x + c.getWidth()/2, y + c.getHeight() - 10, newdir);
     }
 
+    public FireBall addSpecialFireBallBoss(Character c, double x, double y, String dir){
+        String newdir;
+        if (dir.equals("G") | dir.equals("D")){
+            newdir = dir;
+        }else{
+            newdir = "D";}
+        return new FireBall(c, x + c.getWidth(), y + c.getHeight(), newdir);
+    }
+
 
     //Initialisation
     public void init(){

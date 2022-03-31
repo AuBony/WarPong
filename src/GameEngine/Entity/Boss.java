@@ -9,7 +9,7 @@ public class Boss extends Character {
 
     public Boss(int Rwidth, int Rheight){
         super();
-        this.hp = 100;
+        this.hp = 200;
         this.velocity = 5;
         this.type = "Boss";
         this.x = (double) Rwidth/2 - 100;
