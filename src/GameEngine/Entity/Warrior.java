@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
 public class Warrior extends Character {
 
     //Variables
-    Image skinWarrior;
+    private final Image skinWarrior;
 
     //Constructor
     public Warrior(int Rwidth, int Rheight, String type){

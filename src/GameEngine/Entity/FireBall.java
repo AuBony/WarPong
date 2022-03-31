@@ -3,28 +3,34 @@ package GameEngine.Entity;
 import javafx.scene.image.Image;
 
 public class FireBall extends Entities {
-    Image skinFireBall;
-    String dir;
+    private final Image skinFireBall;
+    private String dir;
 
-
-    public FireBall(String s, double x, double y){
+    public FireBall(Character c, double x, double y, String dir){
         super();
-        switch (s) {
+        this.velocity = 1;
+        switch (c.getType()) {
             case "J1" -> {
                 skinFireBall = new Image("Resources/Sprites/FBJ1.png");
-                this.heightEntities = 14;
-                this.widthEntities = 18;
-
+                this.heightEntities = 28;
+                this.widthEntities = 36;
+                this.velocity = 5;
             }
             case "J2" -> {
                 skinFireBall = new Image("Resources/Sprites/FBJ2.png");
-                this.heightEntities = 14;
-                this.widthEntities = 18;
+                this.heightEntities = 28;
+                this.widthEntities = 36;
+                this.velocity = -5;
             }
             case "Boss" -> {
                 skinFireBall = new Image("Resources/Sprites/FBBoss.png");
-                this.heightEntities = 26;
-                this.widthEntities = 26;
+                this.heightEntities = 40;
+                this.widthEntities = 40;
+                if(dir.equals("G")){
+                    this.velocity = -2;
+                }else if(dir.equals("D")){
+                    this.velocity = 2;
+                }
             }
             default ->{
                 skinFireBall = new Image("Resources/Sprites/dragon_100x79.png");
@@ -34,20 +40,26 @@ public class FireBall extends Entities {
         }
         this.y = y - this.heightEntities/2;
         this.x = x - this.widthEntities/2;
-
+        this.dir = dir;
     }
 
     //Get
     public Image getSkinFireBall() {
         return skinFireBall;
     }
-
+    public String getDir() {
+        return dir;
+    }
+    //Set
+    public void setDir(String dir) {
+        this.dir = dir;
+    }
 
     //Method
     public void move(String type, double x, double y) {
         switch (type) {
-            case "J1" -> this.x += 10;
-            case "J2" -> this.x -= 10;
+            case "J1" -> this.x += this.velocity;
+            case "J2" -> this.x -= this.velocity;
             default -> System.out.println("Error : nothing move");
         }
     }

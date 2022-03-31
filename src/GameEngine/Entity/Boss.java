@@ -5,6 +5,7 @@ import javafx.scene.image.Image;
 public class Boss extends Character {
 
     private boolean monte = true;
+    private final Image headBoss;
 
     public Boss(int Rwidth, int Rheight){
         super();
@@ -15,8 +16,8 @@ public class Boss extends Character {
         this.y = (double) Rheight/2 - 79;
         this.widthEntities = 200;
         this.heightEntities = 158;
+        this.headBoss = new Image("Resources/Sprites/dragon_100x79.png");
     }
-    Image headBoss = new Image("Resources/Sprites/dragon_100x79.png");
 
     //Get
     public Image getHeadBoss() {
@@ -24,7 +25,7 @@ public class Boss extends Character {
     }
 
     public boolean getMonte() {
-        return monte;
+        return this.monte;
     }
     //Set
     public void setMonte(boolean monte) {

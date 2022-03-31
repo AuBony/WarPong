@@ -4,21 +4,18 @@ import GameEngine.Entity.Boss;
 import GameEngine.Entity.Character;
 import GameEngine.Entity.FireBall;
 import GameEngine.Entity.Warrior;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 
 public class GE {
     int Rwidth;
     int Rheight;
-    GraphicsContext gc;
+
     private Boss boss;
     private Warrior J1;
     private Warrior J2;
 
-    public GE(int rwidth, int rheight, GraphicsContext gc) {
+    public GE(int rwidth, int rheight) {
         Rwidth = rwidth;
         Rheight = rheight;
-        this.gc = gc;
     }
     //Get
     public Boss getBoss() {
@@ -34,46 +31,52 @@ public class GE {
     }
 
     //addEntities
-    public Boss addBoss(GraphicsContext gc){
+    public Boss addBoss(){
         return (new Boss(Rwidth, Rheight));
     }
-    public Warrior addWarrior(GraphicsContext gc, String J){
+    public Warrior addWarrior(String J){
         return(new Warrior(Rwidth, Rheight, J));
     }
-    public void addFireBall(GraphicsContext gc, Character c, double x, double y){
-        FireBall fireBall = new FireBall(c.getType(), x, y);
-        Image Imfireball = fireBall.getSkinFireBall();
+    public FireBall addFireBall(Character c, double x, double y){
         double offsetx = 0;
         double offsety = 0;
+        String dir = "D";
         switch(c.getType()){
             case "J1" -> {
                 offsetx = c.getWidth();
                 offsety = c.getHeight()/2;
+                dir = "D";
             }
             case "J2" -> {
                 offsetx = 0;
                 offsety = c.getHeight()/2;
+                dir = "G";
             }
-            case "Boss" -> {
-                offsetx = c.getWidth()/2;
-                offsety = c.getHeight() - 10; // Fireball sort au niveau de la bouche du dragon
-            }
-            default ->{}
         }
-
-        gc.drawImage(Imfireball,
-                fireBall.getX() + offsetx, fireBall.getY() + offsety,
-                fireBall.getWidth(), fireBall.getHeight());//TODO à mettre dans le render
+        return new FireBall(c, x + offsetx, y + offsety, dir);
     }
+
+    public FireBall addFireBallBoss(Character c, double x, double y, String dir){
+        String newdir;
+        if (dir.equals("G") | dir.equals("D")){
+            newdir = dir;
+
+        }else{
+            System.out.println("ERROR : WRONG DIRECTION TO CAST A FIREBALL (set by default Right)");
+            newdir = "D";
+        }
+        return new FireBall(c, x + c.getWidth()/2, y + c.getHeight() - 10, newdir);
+    }
+
 
     //Initialisation
     public void init(){
-        J1 = addWarrior(gc, "J1");
-        J2 = addWarrior(gc, "J2");
-        boss = addBoss(gc);
-        addFireBall(gc, J1, J1.getX(), J1.getY());
-        addFireBall(gc, J2, J2.getX(), J2.getY());
-        addFireBall(gc, boss, boss.getX(), boss.getY());
+        J1 = addWarrior("J1");
+        J2 = addWarrior("J2");
+        boss = addBoss();
+        addFireBall(J1, J1.getX(), J1.getY());
+        addFireBall(J2, J2.getX(), J2.getY());
+        addFireBall(boss, boss.getX(), boss.getY());
     }
 
     //Tick

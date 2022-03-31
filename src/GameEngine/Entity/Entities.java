@@ -7,8 +7,9 @@ public abstract class Entities implements Move {
     //Variables
     protected double x;
     protected double y;
-    double heightEntities;
-    double widthEntities;
+    protected double heightEntities;
+    protected double widthEntities;
+    protected double velocity;
 
     //Constructor
     public Entities(double height, double width){
@@ -21,45 +22,27 @@ public abstract class Entities implements Move {
     public double getX() {
         return x;
     }
-
     public double getY() {
         return y;
     }
-
-    public double getWidth() {
-        return widthEntities;
-    }
-
     public double getHeight() {
         return heightEntities;
     }
-
-
+    public double getWidth() {
+        return widthEntities;
+    }
+    public double getVelocity() {
+        return velocity;
+    }
 
     //Set
+    public void setX(double x) {this.x = x;}
+    public void setY(double y){this.y = y;}
     public void setHeightEntities(double heightEntities) {
         this.heightEntities = heightEntities;
     }
-
     public void setWidthEntities(double widthEntities) {
         this.widthEntities = widthEntities;
     }
-
-    public void setX(double x){this.x = x;}
-    public void setY(double y){this.y = y;}
-
-
-    /*    public double getHeigh() {
-        return heightEntities;
-    }
-
-
-
-    public double getX() {
-        return x;
-    }
-
-    public double getY() {
-        return y;
-    }*/
+    public void setVelocity(double velocity) {this.velocity = velocity;}
 }
