@@ -1,6 +1,6 @@
-import GameEngine.Background;
+import Graphism.Background;
 import GameEngine.Entity.*;
-import GameEngine.FinishText;
+import Graphism.FinishText;
 import GameEngine.GE;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;

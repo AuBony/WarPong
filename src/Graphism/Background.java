@@ -1,4 +1,4 @@
-package GameEngine;
+package Graphism;
 
 import javafx.scene.image.Image;
 

@@ -1,4 +1,4 @@
-package GameEngine;
+package Graphism;
 
 import javafx.geometry.VPos;
 import javafx.scene.paint.Color;
