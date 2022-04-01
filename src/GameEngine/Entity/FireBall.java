@@ -1,19 +1,12 @@
 package GameEngine.Entity;
-
-import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
-
-import java.util.ArrayList;
-import java.util.List;
-
-
 public class FireBall extends Entities {
     //Variables
     private final String castBy;
     private int damage;
 
     //Constructor
-    public FireBall(Warrior w, double x, double y, String dir){
+    public FireBall(Warrior w, double x, double y){
         super();
         this.velocity = 1;
         switch (w.getType()) {

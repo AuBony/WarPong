@@ -18,14 +18,16 @@ public class LFireBall extends Entities{
 
     //Method
     /**
-     *
-     * @param J1
-     * @param J2
-     * @param b
-     * @param Rwidth
-     * @param hitboxBoss
-     * @param hitboxJ1
-     * @param hitboxJ2
+     * Move all the fireballs.
+     * Check collision with Boss or Warrior, withdraw health points from Boss or Warriors.
+     * Delete fireballs if they were out of bound or if they collided with a Character.
+     * @param J1        an object of the Warrior Class. The Warrior on the left of the scene.
+     * @param J2        an object of the Warrior Class. The Warrior on the right of the scene.
+     * @param b         an object of the Boss Class.
+     * @param Rwidth    an integer. The width of the scene.
+     * @param hitboxBoss    a Rectangle2D. A rectangle that represents the boss' hitbox.
+     * @param hitboxJ1      a Rectangle2D. A rectangle that represents the hitbox of the right Warrior (J1).
+     * @param hitboxJ2      a Rectangle2D. A rectangle that represents the hitbox of the left Warrior (J2).
      */
     public void moveAllFireBall(Warrior J1, Warrior J2, Boss b,
                                 int Rwidth,

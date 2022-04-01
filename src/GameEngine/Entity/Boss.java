@@ -32,8 +32,8 @@ public class Boss extends Character {
 
     //Method
     /**
-     *
-     * @param Rheight
+     * Move Boss object up and down on a predefined path. Boss covers 4/5 of the scene.
+     * @param Rheight int the height of the scene.
      */
     public void move(int Rheight){
         if(this.getY()< (double) Rheight / 2 - (this.getHeight() / 2 + (double) 3*Rheight/10)){
