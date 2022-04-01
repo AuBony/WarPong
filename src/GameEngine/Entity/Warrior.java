@@ -48,6 +48,8 @@ public class Warrior extends Character {
         return type;
     }
     public boolean Isalive() {return isalive;}
+    public int getWarriorDamage() {
+        return 5;}
 
     //Set
     public void setIsalive(boolean isalive) {
@@ -61,6 +63,15 @@ public class Warrior extends Character {
             super.drawEntity(gc);
         }else{
             gc.drawImage(this.DeadSkin, this.x, this.y, this.getHeight(), this.getWidth());
+        }
+    }
+
+    public void move(String dir, int Rheight){
+        if(this.y < Rheight - this.heightEntities && dir.equals("DOWN")){
+            this.y = this.y + this.velocity;
+        }
+        if(this.y > 0 && dir.equals("UP")){
+            this.y = this.y - this.velocity;
         }
     }
 }
