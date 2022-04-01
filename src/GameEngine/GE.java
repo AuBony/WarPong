@@ -1,7 +1,6 @@
 package GameEngine;
 
 import GameEngine.Entity.Boss;
-import GameEngine.Entity.Character;
 import GameEngine.Entity.FireBall;
 import GameEngine.Entity.Warrior;
 
@@ -60,17 +59,14 @@ public class GE {
     public FireBall addFireBall(Warrior w, double x, double y){
         double offsetx = 0;
         double offsety = 0;
-        String dir = "D";
         switch(w.getType()){
             case "J1" -> {
                 offsetx = w.getWidth();
                 offsety = w.getHeight()/2;
-                dir = "D";
             }
             case "J2" -> {
                 offsetx = 0;
                 offsety = w.getHeight()/2;
-                dir = "G";
             }
         }
         return new FireBall(w, x + offsetx, y + offsety);
