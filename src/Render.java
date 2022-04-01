@@ -1,12 +1,10 @@
-import GameEngine.Entity.Boss;
-import GameEngine.Entity.FireBall;
-import GameEngine.Entity.LFireBall;
-import GameEngine.Entity.Warrior;
+import GameEngine.Background;
+import GameEngine.Entity.*;
+import GameEngine.FinishText;
 import GameEngine.GE;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -14,13 +12,10 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.geometry.Rectangle2D;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Render extends Application {
 
@@ -29,14 +24,7 @@ public class Render extends Application {
     int Rheight = 700;
     GE ge;
     public static ArrayList<KeyCode> inputString = new ArrayList<>();
-    Image fond;
     int choixMap;
-    Image fond2 = new Image("Resources/Sprites/fond Japonais.png");
-    Image fond3 = new Image("Resources/Sprites/fond.png");
-    Image fond1 = new Image("Resources/Sprites/fond fantasy.png");
-    Image winD = new Image("Resources/Sprites/win.png");
-    Image defeatD = new Image("Resources/Sprites/defeat.png");
-
     long time;
     int fps = 30;
     int cadence = 2000;
@@ -46,25 +34,6 @@ public class Render extends Application {
     @Override
     public void start(Stage stage) {
         //Create Graphic
-
-        choixMap = (int) Math.floor(1+ Math.random()*2);
-
-        Text defeat = new Text("TRY AGAIN !");
-        defeat.setFont(Font.font("Consola", 70));
-        defeat.setFill(Color.RED);
-        defeat.setTextOrigin(VPos.CENTER);
-        defeat.setLayoutX((double) Rwidth/3);
-        defeat.setLayoutY((double) Rheight/3);
-        defeat.setVisible(false);
-
-        Text win = new Text("GOD LIKE !");
-        win.setFont(Font.font("Consola", 70));
-        win.setFill(Color.RED);
-        win.setTextOrigin(VPos.CENTER);
-        win.setLayoutX((double) Rwidth/3);
-        win.setLayoutY((double) Rheight/3);
-        win.setVisible(false);
-
         Group root = new Group();
 
         stage.setTitle("W A R  P O N G");
@@ -75,7 +44,10 @@ public class Render extends Application {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.setFill(Color.BLACK);
         ge = new GE(Rwidth,Rheight);
-        root.getChildren().addAll(defeat,win);
+        choixMap = (int) Math.floor(1+ Math.random()*2);
+        Background background = new Background(choixMap);
+        FinishText Ftext = new FinishText(Rwidth, Rheight);
+        root.getChildren().addAll(Ftext.getDefeat(), Ftext.getWin());
 
         //Controls
         scene.setOnKeyPressed(e -> {
@@ -89,7 +61,7 @@ public class Render extends Application {
             inputString.remove(code);
         });
 
-        // Add entities
+        // ADD ENTITIES //
         ge.init();
         Warrior J1 = ge.getJ1();
         Warrior J2 = ge.getJ2();
@@ -98,15 +70,13 @@ public class Render extends Application {
 
         loop = new Timeline(new KeyFrame(Duration.millis(fps), arg -> {
             time += 1;
-            // ADD ENTITIES //
-                //Hitbox
+            //Hitbox
             Rectangle2D hitboxBoss  = boss.createHitbox();
             Rectangle2D hitboxJ1 = J1.createHitbox();
             Rectangle2D hitboxJ2 = J2.createHitbox();
 
-            //Cooperation
-            if ((time % Math.floor((float) cadence / fps)) == 0){
 
+            if ((time % Math.floor((float) cadence / fps)) == 0){
                 //COOP
                 if (inputString.contains(KeyCode.LEFT)) {
                     J2.setHp(J2.getHp() -1);
@@ -116,8 +86,7 @@ public class Render extends Application {
                     J1.setHp(J1.getHp() -1);
                     J2.setHp(J2.getHp() + 1);
                 }
-
-                //Add fireball
+                //Boss Classic attack
                 if (J1.Isalive()){
                     FireBall FBJ1 = ge.addFireBall(J1, J1.getX(), J1.getY());
                     LFB.getLfb().add(FBJ1);
@@ -133,7 +102,6 @@ public class Render extends Application {
             }
                 //Boss Special attack
             if ((time % Math.floor((float) (4*cadence) / fps)) == 0){
-
                 int atkSpe = (int) Math.floor(1+ Math.random()*2);
                 switch (atkSpe) {
                     case 1 -> {
@@ -153,10 +121,10 @@ public class Render extends Application {
                 }
             }
 
-            //Mvt Fireball
+            //MOVEMENT
+                //Mvt Fireball
             LFB.moveAllFireBall(J1, J2, boss, Rwidth, hitboxBoss, hitboxJ1, hitboxJ2);
-
-            //Mvt Warrior
+                //Mvt Warrior
             if (inputString.contains(KeyCode.S) && J1.Isalive()) {
                     J1.setY(J1.getY() + J1.getVelocity());
                 }
@@ -169,18 +137,15 @@ public class Render extends Application {
                 if (inputString.contains(KeyCode.UP) && J2.Isalive()) {
                     J2.setY(J2.getY() - J2.getVelocity());
                 }
-
-            //Mvt boss
+                //Mvt boss
             boss.move(Rheight);
 
             //Check is alive
             if (J1.getHp() <=0){J1.setIsalive(false);}
             if (J2.getHp() <=0){J2.setIsalive(false);}
 
-            //Draw
-            if (choixMap == 1){gc.drawImage(fond1, 0, 0, Rwidth, Rheight);}
-            if (choixMap == 2){gc.drawImage(fond2, 0, 0, Rwidth, Rheight);}
-            if (choixMap == 3){gc.drawImage(fond3, 0, 0, Rwidth, Rheight);}
+            //DRAW
+            gc.drawImage(background.getImage(), 0, 0, Rwidth, Rheight);
             boss.drawEntity(gc);
             J1.drawEntity(gc);
             J2.drawEntity(gc);
@@ -190,15 +155,17 @@ public class Render extends Application {
             stage.setTitle("J1 : " + J1.getHp() + "     " + boss.getHp() + "     " + J2.getHp() + " : J2");
 
 
-            //Finishing
+            //FINISH
             if (boss.getHp() <= 0){
-                win.setVisible(true);
+                Ftext.getWin().setVisible(true);
                 this.loop.stop();
+                Image winD = new Image("Resources/Sprites/win.png");
                 gc.drawImage(winD, 0, 0, Rwidth, Rheight);
             }
             if (J1.getHp() <= 0 && J2.getHp() <= 0){
-                defeat.setVisible(true);
+                Ftext.getDefeat().setVisible(true);
                 this.loop.stop();
+                Image defeatD = new Image("Resources/Sprites/defeat.png");
                 gc.drawImage(defeatD, 0, 0, Rwidth, Rheight);
 
             }
