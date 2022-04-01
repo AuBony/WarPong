@@ -17,8 +17,8 @@ public class Retry extends Application {
     //Method
 
     /**
-     *
-     * @param stage
+     * 2ndary start, used for tests.
+     * @param stage the stage
      */
     @Override
     public void start(Stage stage) {
@@ -26,9 +26,9 @@ public class Retry extends Application {
     }
 
     /**
-     *
-     * @param Rheight
-     * @param Rwidth
+     * Set parameters for the retry Button.
+     * @param Rheight Height of the scene.
+     * @param Rwidth Widht of the scene.
      */
     public void modifyButton(int Rheight, int Rwidth){
         this.button.setPrefSize(100, 50);

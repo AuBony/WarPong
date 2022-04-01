@@ -40,8 +40,12 @@ public class Render extends Application {
     //Method
 
     /**
-     *
-     * @param stage
+     * Start the app and the scene with an animation timer.
+     * Add Entities (Warriors, Boss, Fireballs).
+     * Define the scene, the winning condition, the canvas.
+     * Calculate damage.
+     * Introduce small animation.
+     * @param stage -> the stage
      */
     @Override
     public void start(Stage stage) {
@@ -88,7 +92,6 @@ public class Render extends Application {
             Rectangle2D hitboxBoss = boss.createHitbox();
             Rectangle2D hitboxJ1 = J1.createHitbox();
             Rectangle2D hitboxJ2 = J2.createHitbox();
-
 
             if ((time % Math.floor((float) cadence / fps)) == 0) {
                 //COOP
@@ -206,8 +209,6 @@ public class Render extends Application {
                 retry.getButton().setFont(new Font(20));
                 root.getChildren().add(retry.getButton());
             }
-
-
         }));
         loop.setCycleCount(Timeline.INDEFINITE);
         loop.play();

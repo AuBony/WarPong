@@ -34,28 +34,28 @@ public class GE {
     //Method
 
     /**
-     *
-     * @return
+     * Add a Boss in the game
+     * @return return a boss
      */
     public Boss addBoss(){
         return (new Boss(Rwidth, Rheight));
     }
 
     /**
-     *
-     * @param J
-     * @return
+     * Add Warriors in the game
+     * @param J Which player (player 1 or 2)
+     * @return return a Warrior
      */
     public Warrior addWarrior(String J){
         return(new Warrior(Rwidth, Rheight, J));
     }
 
     /**
-     *
-     * @param w
-     * @param x
-     * @param y
-     * @return
+     * Add Fireballs launched by the warriors. Direction of the fireball launched is defined by the type of player (P1 or P2).
+     * @param w Warrior
+     * @param x Coord X
+     * @param y Coord Y
+     * @return the launcher of the fireball, the direction, the x and the y of this fireball.
      */
     public FireBall addFireBall(Warrior w, double x, double y){
         double offsetx = 0;
@@ -77,11 +77,12 @@ public class GE {
     }
 
     /**
-     *
-     * @param b
-     * @param dir
-     * @param attack
-     * @return
+     * Add Fireballs launched by the Boss. 2 types: common fireballs and special fireballs.
+     * Print an Error if an invalid direction is asked.
+     * @param b the Boss
+     * @param dir To the left or to the right
+     * @param attack Attack type: Classic or Special, used in the creation of the fireball.
+     * @return a fireball launched by the boss, with its x, y direction and type.
      */
     public FireBall addFireBallBoss(Boss b, String dir, String attack){
         String newdir;
@@ -97,7 +98,7 @@ public class GE {
     }
 
     /**
-     *
+     * Create the Character objects. Used in the Render.
      */
     public void init(){
         J1 = addWarrior("J1");
