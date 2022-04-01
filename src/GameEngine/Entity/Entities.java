@@ -48,12 +48,17 @@ public abstract class Entities {
 
     //Method
     /**
-     *
-     * @param gc
+     * Draw Entity objects on the GraphicsContext
+     * @param gc a GraphicsContext where we want to draw the Entities.
      */
     public void drawEntity(GraphicsContext gc){
         gc.drawImage(this.getSkin(),this.getX(), this.getY(), this.getWidth(), this.getHeight());
     }
+
+    /**
+     * Create the hitbox of an Entity object of the size of this Entity and at the same position.
+     * @return a Rectangle2D object.
+     */
     public Rectangle2D createHitbox(){
         return (new Rectangle2D(this.getX(), this.getY(), this.getWidth(), this.getHeight()));
     }

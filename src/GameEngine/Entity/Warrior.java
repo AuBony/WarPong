@@ -59,8 +59,9 @@ public class Warrior extends Character {
     //Method
 
     /**
-     *
-     * @param gc
+     * Draw Warrior objects on the GraphicsContext. If the player is dead, we display a particular skin.
+     * Override drawEntity method from Entities.
+     * @param gc a GraphicsContext where we want to draw the Entities.
      */
     @Override
     public void drawEntity(GraphicsContext gc) {
@@ -72,9 +73,9 @@ public class Warrior extends Character {
     }
 
     /**
-     *
-     * @param dir
-     * @param Rheight
+     * Move Warrior object. Prevent Warrior object from exiting the scene.
+     * @param dir       a String object. Direction of Warrior's movement. Can take the values "UP" or "DOWN".
+     * @param Rheight   int the height of the scene.
      */
     public void move(String dir, int Rheight){
         if(this.y < Rheight - this.heightEntities && dir.equals("DOWN")){

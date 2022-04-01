@@ -73,7 +73,7 @@ public class GE {
                 dir = "G";
             }
         }
-        return new FireBall(w, x + offsetx, y + offsety, dir);
+        return new FireBall(w, x + offsetx, y + offsety);
     }
 
     /**
