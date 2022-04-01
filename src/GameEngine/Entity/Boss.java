@@ -5,7 +5,6 @@ import javafx.scene.image.Image;
 public class Boss extends Character {
 
     private boolean monte = true;
-    private final Image headBoss;
 
     public Boss(int Rwidth, int Rheight){
         super();
@@ -16,14 +15,10 @@ public class Boss extends Character {
         this.y = (double) Rheight/2 - 79;
         this.widthEntities = 200;
         this.heightEntities = 158;
-        this.headBoss = new Image("Resources/Sprites/dragon_100x79.png");
+        this.skin = new Image("Resources/Sprites/dragon_100x79.png");
     }
 
     //Get
-    public Image getHeadBoss() {
-        return headBoss;
-    }
-
     public boolean getMonte() {
         return this.monte;
     }
@@ -32,8 +27,20 @@ public class Boss extends Character {
         this.monte = monte;
     }
 
-    @Override
-    public void move(String type, double x, double y) {
-
+    //Method
+    public void move(int Rheight){
+        if(this.getY()< (double) Rheight / 2 - (this.getHeight() / 2 + (double) 3*Rheight/10)){
+            this.setMonte(false);
+        }
+        if(this.getY() > (double) 4*Rheight/5 - this.getHeight() / 2){
+            this.setMonte(true);
+        }
+        if (this.getMonte()){
+            this.setY(this.getY() - this.getVelocity());
+        }else{
+            this.setY(this.getY() + this.getVelocity());
+        }
     }
+
+
 }

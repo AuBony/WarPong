@@ -1,5 +1,6 @@
 import GameEngine.Entity.Boss;
 import GameEngine.Entity.FireBall;
+import GameEngine.Entity.LFireBall;
 import GameEngine.Entity.Warrior;
 import GameEngine.GE;
 import javafx.animation.KeyFrame;
@@ -90,18 +91,22 @@ public class Render extends Application {
 
         // Add entities
         ge.init();
-
         Warrior J1 = ge.getJ1();
         Warrior J2 = ge.getJ2();
         Boss boss = ge.getBoss();
-        List<FireBall> lfb = new ArrayList<>();
-
+        LFireBall LFB = new LFireBall();
 
         loop = new Timeline(new KeyFrame(Duration.millis(fps), arg -> {
             time += 1;
+            // ADD ENTITIES //
+                //Hitbox
+            Rectangle2D hitboxBoss  = boss.createHitbox();
+            Rectangle2D hitboxJ1 = J1.createHitbox();
+            Rectangle2D hitboxJ2 = J2.createHitbox();
 
-            //Compteur de temps
+            //Cooperation
             if ((time % Math.floor((float) cadence / fps)) == 0){
+
                 //COOP
                 if (inputString.contains(KeyCode.LEFT)) {
                     J2.setHp(J2.getHp() -1);
@@ -111,112 +116,79 @@ public class Render extends Application {
                     J1.setHp(J1.getHp() -1);
                     J2.setHp(J2.getHp() + 1);
                 }
-                //Génération des boules de feu
-                FireBall FBJ1 = ge.addFireBall(J1, J1.getX(), J1.getY());
-                FireBall FBJ2 = ge.addFireBall(J2, J2.getX(), J2.getY());
+
+                //Add fireball
+                if (J1.Isalive()){
+                    FireBall FBJ1 = ge.addFireBall(J1, J1.getX(), J1.getY());
+                    LFB.getLfb().add(FBJ1);
+                }
+                if (J2.Isalive()){
+                    FireBall FBJ2 = ge.addFireBall(J2, J2.getX(), J2.getY());
+                    LFB.getLfb().add(FBJ2);
+                }
                 FireBall FBBG = ge.addFireBallBoss(boss, "G", "classic");
                 FireBall FBBD = ge.addFireBallBoss(boss, "D", "classic");
-                lfb.add(FBJ1);
-                lfb.add(FBJ2);
-                lfb.add(FBBG);
-                lfb.add(FBBD);
+                LFB.getLfb().add(FBBG);
+                LFB.getLfb().add(FBBD);
             }
+                //Boss Special attack
             if ((time % Math.floor((float) (4*cadence) / fps)) == 0){
 
                 int atkSpe = (int) Math.floor(1+ Math.random()*2);
                 switch (atkSpe) {
                     case 1 -> {
                         FireBall FBBGspe = ge.addFireBallBoss(boss, "G", "special");
-                        lfb.add(FBBGspe);
+                        LFB.getLfb().add(FBBGspe);
                     }
                     case 2 -> {
                         FireBall FBBDspe = ge.addFireBallBoss(boss, "D", "special");
-                        lfb.add(FBBDspe);
+                        LFB.getLfb().add(FBBDspe);
                     }
                     case 3 -> {
                         FireBall FBBDspe = ge.addFireBallBoss(boss, "D", "special");
                         FireBall FBBGspe = ge.addFireBallBoss(boss, "G", "special");
-                        lfb.add(FBBGspe);
-                        lfb.add(FBBDspe);
+                        LFB.getLfb().add(FBBGspe);
+                        LFB.getLfb().add(FBBDspe);
                     }
                 }
             }
-
-            //Hitbox
-            Rectangle2D hitboxBoss = new Rectangle2D(boss.getX(),boss.getY(), boss.getWidth(), boss.getHeight());
-            Rectangle2D hitboxJ1 = new Rectangle2D(J1.getX(), J1.getY(), J1.getWidth(), J1.getHeight());
-            Rectangle2D hitboxJ2 = new Rectangle2D(J2.getX(), J2.getY(), J2.getWidth(), J2.getHeight());
 
             //Mvt Fireball
-            for (FireBall f : lfb){
-                f.setX(f.getX() + f.getVelocity());
-                //Out of bound
-                if (f.getX() < 0 | f.getX() > Rwidth){
-                    lfb.remove(f);
-                    break;
-                }
-                //Collision
-                Rectangle2D hitboxf = new Rectangle2D(f.getX(), f.getY(), f.getWidth(), f.getHeight());
-                if(f.getCastBy().equals("Boss")) {
-                    if (hitboxf.intersects(hitboxJ1)){
-                        J1.setHp(J1.getHp() - f.getDamage());
-                        lfb.remove(f);
-                        break;
-                }
-                    if (hitboxf.intersects(hitboxJ2)){
-                        J2.setHp(J2.getHp() - f.getDamage());
-                        lfb.remove(f);
-                        break;
-                    }
-                }
-                if(f.getCastBy().equals("J1") | f.getCastBy().equals("J2")){
-                    if (hitboxf.intersects(hitboxBoss)){
-                        boss.setHp(boss.getHp() - f.getDamage());
-                        lfb.remove(f);
-                        break;
-                    }
-                }
-            }
+            LFB.moveAllFireBall(J1, J2, boss, Rwidth, hitboxBoss, hitboxJ1, hitboxJ2);
 
             //Mvt Warrior
-            if (inputString.contains(KeyCode.S)) {
+            if (inputString.contains(KeyCode.S) && J1.Isalive()) {
                     J1.setY(J1.getY() + J1.getVelocity());
                 }
-                if (inputString.contains(KeyCode.Z)) {
+                if (inputString.contains(KeyCode.Z) && J1.Isalive()) {
                     J1.setY(J1.getY() - J1.getVelocity());
                 }
-                if (inputString.contains(KeyCode.DOWN)) {
+                if (inputString.contains(KeyCode.DOWN) && J2.Isalive()) {
                     J2.setY(J2.getY() + J2.getVelocity());
                 }
-                if (inputString.contains(KeyCode.UP)) {
+                if (inputString.contains(KeyCode.UP) && J2.Isalive()) {
                     J2.setY(J2.getY() - J2.getVelocity());
                 }
 
             //Mvt boss
-            if(boss.getY()< (double) Rheight / 2 - (boss.getHeight() / 2 + (double) 3*Rheight/10)){
-                boss.setMonte(false);
-            }
-            if(boss.getY() > (double) 4*Rheight/5 - boss.getHeight() / 2){
-                boss.setMonte(true);
-            }
-                if (boss.getMonte()){
-                    boss.setY(boss.getY() - boss.getVelocity());
-                }else{
-                    boss.setY(boss.getY() + boss.getVelocity());
-                }
+            boss.move(Rheight);
+
+            //Check is alive
+            if (J1.getHp() <=0){J1.setIsalive(false);}
+            if (J2.getHp() <=0){J2.setIsalive(false);}
 
             //Draw
             if (choixMap == 1){gc.drawImage(fond1, 0, 0, Rwidth, Rheight);}
             if (choixMap == 2){gc.drawImage(fond2, 0, 0, Rwidth, Rheight);}
             if (choixMap == 3){gc.drawImage(fond3, 0, 0, Rwidth, Rheight);}
-            gc.drawImage(boss.getHeadBoss(), boss.getX(), boss.getY(), boss.getWidth(), boss.getHeight());
-            gc.drawImage(J1.getSkinWarrior(), J1.getX(), J1.getY(), J1.getWidth(), J1.getHeight());
-            gc.drawImage(J2.getSkinWarrior(), J2.getX(), J2.getY(), J2.getWidth(), J2.getHeight());
-            for (FireBall f : lfb){
-                gc.drawImage(f.getSkinFireBall(), f.getX(), f.getY(), f.getWidth(), f.getHeight());
+            boss.drawEntity(gc);
+            J1.drawEntity(gc);
+            J2.drawEntity(gc);
+            for (FireBall f : LFB.getLfb()){
+                f.drawEntity(gc);
             }
-                 //HP
             stage.setTitle("J1 : " + J1.getHp() + "     " + boss.getHp() + "     " + J2.getHp() + " : J2");
+
 
             //Finishing
             if (boss.getHp() <= 0){

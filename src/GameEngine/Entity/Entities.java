@@ -1,8 +1,10 @@
 package GameEngine.Entity;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 
-import GameEngine.Physic.Move;
 
-public abstract class Entities implements Move {
+public abstract class Entities {
 
     //Variables
     protected double x;
@@ -10,13 +12,14 @@ public abstract class Entities implements Move {
     protected double heightEntities;
     protected double widthEntities;
     protected double velocity;
+    protected Image skin;
 
     //Constructor
     public Entities(double height, double width){
         this.heightEntities = height;
         this.widthEntities = width;
     }
-    public Entities(){ }
+    public Entities(){}
 
     //Get
     public double getX() {
@@ -34,6 +37,7 @@ public abstract class Entities implements Move {
     public double getVelocity() {
         return velocity;
     }
+    public Image getSkin(){return skin;}
 
     //Set
     public void setX(double x) {this.x = x;}
@@ -45,4 +49,12 @@ public abstract class Entities implements Move {
         this.widthEntities = widthEntities;
     }
     public void setVelocity(double velocity) {this.velocity = velocity;}
+
+    //Method
+    public void drawEntity(GraphicsContext gc){
+        gc.drawImage(this.getSkin(),this.getX(), this.getY(), this.getWidth(), this.getHeight());
+    }
+    public Rectangle2D createHitbox(){
+        return (new Rectangle2D(this.getX(), this.getY(), this.getWidth(), this.getHeight()));
+    }
 }

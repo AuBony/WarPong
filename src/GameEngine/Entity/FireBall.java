@@ -1,10 +1,13 @@
 package GameEngine.Entity;
 
+import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class FireBall extends Entities {
-    private final Image skinFireBall;
     private final String castBy;
     private int damage;
 
@@ -13,21 +16,21 @@ public class FireBall extends Entities {
         this.velocity = 1;
         switch (w.getType()) {
             case "J1" -> {
-                skinFireBall = new Image("Resources/Sprites/FBJ1.png");
+                skin = new Image("Resources/Sprites/FBJ1.png");
                 this.heightEntities = 28;
                 this.widthEntities = 36;
                 this.velocity = 5;
                 this.damage = 5;
             }
             case "J2" -> {
-                skinFireBall = new Image("Resources/Sprites/FBJ2.png");
+                skin = new Image("Resources/Sprites/FBJ2.png");
                 this.heightEntities = 28;
                 this.widthEntities = 36;
                 this.velocity = -5;
                 this.damage = 5;
             }
             default ->{
-                skinFireBall = new Image("Resources/Sprites/dragon_100x79.png");
+                skin = new Image("Resources/Sprites/dragon_100x79.png");
                 this.heightEntities = 79;
                 this.widthEntities = 100;
             }
@@ -37,12 +40,12 @@ public class FireBall extends Entities {
         this.x = x - this.widthEntities/2;
     }
 
-    public FireBall(Boss b, String dir, String attack){
+    public FireBall(Boss b, double x, double y, String dir, String attack){
         super();
         this.velocity = 1;
         switch(attack) {
             case "classic" -> {
-                skinFireBall = new Image("Resources/Sprites/FBBoss.png");
+                skin = new Image("Resources/Sprites/FBBoss.png");
                 this.heightEntities = 40;
                 this.widthEntities = 40;
                 this.damage = 2;
@@ -53,7 +56,7 @@ public class FireBall extends Entities {
                 }
             }
             case "special" -> {
-                skinFireBall = new Image("Resources/Sprites/FBBspe.png");
+                skin = new Image("Resources/Sprites/FBBspe.png");
                 this.heightEntities = 60;
                 this.widthEntities = 60;
                 this.damage = 5;
@@ -64,7 +67,7 @@ public class FireBall extends Entities {
                 }
             }
             default ->{
-                skinFireBall = new Image("Resources/Sprites/dragon_100x79.png");
+                skin = new Image("Resources/Sprites/dragon_100x79.png");
                 this.heightEntities = 79;
                 this.widthEntities = 100;
                 this.damage = 5;
@@ -72,28 +75,19 @@ public class FireBall extends Entities {
             }
         }
         this.castBy = b.getType();
-        this.y = b.getY() - this.heightEntities/2;
-        this.x = b.getX() - this.widthEntities/2;
+        this.y = y - this.heightEntities/2;
+        this.x = x - this.widthEntities/2;
     }
 
     //Get
     public Image getSkinFireBall() {
-        return skinFireBall;
+        return skin;
     }
     public String getCastBy() {
         return castBy;
     }
     public int getDamage() {
         return damage;
-    }
-
-    //Method
-    public void move(String type, double x, double y) {
-        switch (type) {
-            case "J1" -> this.x += this.velocity;
-            case "J2" -> this.x -= this.velocity;
-            default -> System.out.println("Error : nothing move");
-        }
     }
 
 }

@@ -21,11 +21,9 @@ public class GE {
     public Boss getBoss() {
         return boss;
     }
-
     public Warrior getJ1() {
         return J1;
     }
-
     public Warrior getJ2() {
         return J2;
     }
@@ -55,16 +53,17 @@ public class GE {
         }
         return new FireBall(w, x + offsetx, y + offsety, dir);
     }
-
     public FireBall addFireBallBoss(Boss b, String dir, String attack){
         String newdir;
+        double offsetx = b.getWidth()/2;
+        double offsety = b.getHeight() - 10; // Fireball sort au niveau de la bouche du dragon
         if (dir.equals("G") | dir.equals("D")){
             newdir = dir;
         }else{
             System.out.println("ERROR : WRONG DIRECTION TO CAST A FIREBALL (set by default Right)");
             newdir = "D";
         }
-        return new FireBall(b, newdir, attack);
+        return new FireBall(b, b.getX() + offsetx, b.getY() + offsety, newdir, attack);
     }
 
 
