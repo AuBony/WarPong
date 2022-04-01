@@ -4,8 +4,10 @@ import javafx.scene.image.Image;
 
 public class Boss extends Character {
 
+    //Variables
     private boolean monte = true;
 
+    //Constructor
     public Boss(int Rwidth, int Rheight){
         super();
         this.hp = 200;
@@ -22,12 +24,17 @@ public class Boss extends Character {
     public boolean getMonte() {
         return this.monte;
     }
+
     //Set
     public void setMonte(boolean monte) {
         this.monte = monte;
     }
 
     //Method
+    /**
+     *
+     * @param Rheight
+     */
     public void move(int Rheight){
         if(this.getY()< (double) Rheight / 2 - (this.getHeight() / 2 + (double) 3*Rheight/10)){
             this.setMonte(false);

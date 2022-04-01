@@ -7,16 +7,10 @@ public abstract class Character extends Entities {
     protected int hp;
 
     //Get
-    public String getType() {
-        return type;
-    }
-
-    public int getHp() {
-        return hp;
-    }
+    public String getType() {return type;}
+    public int getHp() {return hp;}
 
     //Set
-
     public void setHp(int hp) {
         this.hp = hp;
     }

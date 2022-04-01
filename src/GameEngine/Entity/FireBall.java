@@ -8,8 +8,11 @@ import java.util.List;
 
 
 public class FireBall extends Entities {
+    //Variables
     private final String castBy;
     private int damage;
+
+    //Constructor
     public FireBall(Warrior w, double x, double y, String dir){
         super();
         this.velocity = 1;
@@ -79,9 +82,6 @@ public class FireBall extends Entities {
     }
 
     //Get
-    public Image getSkinFireBall() {
-        return skin;
-    }
     public String getCastBy() {
         return castBy;
     }

@@ -7,16 +7,29 @@ import javafx.stage.Stage;
 
 
 public class Retry extends Application {
+    //Variables
     private final Button button = new Button("RETRY");
 
+    //Constructor
     public Retry(){
     }
 
+    //Method
+
+    /**
+     *
+     * @param stage
+     */
     @Override
     public void start(Stage stage) {
 
     }
 
+    /**
+     *
+     * @param Rheight
+     * @param Rwidth
+     */
     public void modifyButton(int Rheight, int Rwidth){
         this.button.setPrefSize(100, 50);
         this.button.setTextFill(Color.WHITE);

@@ -57,6 +57,11 @@ public class Warrior extends Character {
     }
 
     //Method
+
+    /**
+     *
+     * @param gc
+     */
     @Override
     public void drawEntity(GraphicsContext gc) {
         if (this.isalive){
@@ -66,6 +71,11 @@ public class Warrior extends Character {
         }
     }
 
+    /**
+     *
+     * @param dir
+     * @param Rheight
+     */
     public void move(String dir, int Rheight){
         if(this.y < Rheight - this.heightEntities && dir.equals("DOWN")){
             this.y = this.y + this.velocity;

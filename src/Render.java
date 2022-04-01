@@ -38,6 +38,11 @@ public class Render extends Application {
     Timeline loop;
 
     //Method
+
+    /**
+     *
+     * @param stage
+     */
     @Override
     public void start(Stage stage) {
         //Create Graphic

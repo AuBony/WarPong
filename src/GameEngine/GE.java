@@ -6,6 +6,7 @@ import GameEngine.Entity.FireBall;
 import GameEngine.Entity.Warrior;
 
 public class GE {
+    //Variables
     int Rwidth;
     int Rheight;
 
@@ -13,10 +14,12 @@ public class GE {
     private Warrior J1;
     private Warrior J2;
 
+    //Constructor
     public GE(int rwidth, int rheight) {
         Rwidth = rwidth;
         Rheight = rheight;
     }
+
     //Get
     public Boss getBoss() {
         return boss;
@@ -28,13 +31,32 @@ public class GE {
         return J2;
     }
 
-    //addEntities
+    //Method
+
+    /**
+     *
+     * @return
+     */
     public Boss addBoss(){
         return (new Boss(Rwidth, Rheight));
     }
+
+    /**
+     *
+     * @param J
+     * @return
+     */
     public Warrior addWarrior(String J){
         return(new Warrior(Rwidth, Rheight, J));
     }
+
+    /**
+     *
+     * @param w
+     * @param x
+     * @param y
+     * @return
+     */
     public FireBall addFireBall(Warrior w, double x, double y){
         double offsetx = 0;
         double offsety = 0;
@@ -53,6 +75,14 @@ public class GE {
         }
         return new FireBall(w, x + offsetx, y + offsety, dir);
     }
+
+    /**
+     *
+     * @param b
+     * @param dir
+     * @param attack
+     * @return
+     */
     public FireBall addFireBallBoss(Boss b, String dir, String attack){
         String newdir;
         double offsetx = b.getWidth()/2;
@@ -66,17 +96,12 @@ public class GE {
         return new FireBall(b, b.getX() + offsetx, b.getY() + offsety, newdir, attack);
     }
 
-
-    //Initialisation
+    /**
+     *
+     */
     public void init(){
         J1 = addWarrior("J1");
         J2 = addWarrior("J2");
         boss = addBoss();
     }
-
-    //Tick
-    public void tick(){
-
-    }
-
 }

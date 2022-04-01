@@ -6,9 +6,11 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class FinishText {
+    //Variables
     private final Text defeat;
     private final Text win;
 
+    //Constructor
     public FinishText(int Rwidth, int Rheight) {
         //Defeat
         defeat = new Text("TRY AGAIN !");

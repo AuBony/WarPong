@@ -15,10 +15,6 @@ public abstract class Entities {
     protected Image skin;
 
     //Constructor
-    public Entities(double height, double width){
-        this.heightEntities = height;
-        this.widthEntities = width;
-    }
     public Entities(){}
 
     //Get
@@ -51,6 +47,10 @@ public abstract class Entities {
     public void setVelocity(double velocity) {this.velocity = velocity;}
 
     //Method
+    /**
+     *
+     * @param gc
+     */
     public void drawEntity(GraphicsContext gc){
         gc.drawImage(this.getSkin(),this.getX(), this.getY(), this.getWidth(), this.getHeight());
     }

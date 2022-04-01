@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LFireBall extends Entities{
+    //Variables
     private final List<FireBall> lfb = new ArrayList<>();
 
+    //Constructor
     public LFireBall(){}
 
     //Get
@@ -15,6 +17,16 @@ public class LFireBall extends Entities{
     }
 
     //Method
+    /**
+     *
+     * @param J1
+     * @param J2
+     * @param b
+     * @param Rwidth
+     * @param hitboxBoss
+     * @param hitboxJ1
+     * @param hitboxJ2
+     */
     public void moveAllFireBall(Warrior J1, Warrior J2, Boss b,
                                 int Rwidth,
                                 Rectangle2D hitboxBoss, Rectangle2D hitboxJ1, Rectangle2D hitboxJ2){
