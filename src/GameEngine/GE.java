@@ -37,44 +37,34 @@ public class GE {
     public Warrior addWarrior(String J){
         return(new Warrior(Rwidth, Rheight, J));
     }
-    public FireBall addFireBall(Character c, double x, double y){
+    public FireBall addFireBall(Warrior w, double x, double y){
         double offsetx = 0;
         double offsety = 0;
         String dir = "D";
-        switch(c.getType()){
+        switch(w.getType()){
             case "J1" -> {
-                offsetx = c.getWidth();
-                offsety = c.getHeight()/2;
+                offsetx = w.getWidth();
+                offsety = w.getHeight()/2;
                 dir = "D";
             }
             case "J2" -> {
                 offsetx = 0;
-                offsety = c.getHeight()/2;
+                offsety = w.getHeight()/2;
                 dir = "G";
             }
         }
-        return new FireBall(c, x + offsetx, y + offsety, dir);
+        return new FireBall(w, x + offsetx, y + offsety, dir);
     }
 
-    public FireBall addFireBallBoss(Character c, double x, double y, String dir){
+    public FireBall addFireBallBoss(Boss b, String dir, String attack){
         String newdir;
         if (dir.equals("G") | dir.equals("D")){
             newdir = dir;
-
         }else{
             System.out.println("ERROR : WRONG DIRECTION TO CAST A FIREBALL (set by default Right)");
             newdir = "D";
         }
-        return new FireBall(c, x + c.getWidth()/2, y + c.getHeight() - 10, newdir);
-    }
-
-    public FireBall addSpecialFireBallBoss(Character c, double x, double y, String dir){
-        String newdir;
-        if (dir.equals("G") | dir.equals("D")){
-            newdir = dir;
-        }else{
-            newdir = "D";}
-        return new FireBall(c, x + c.getWidth(), y + c.getHeight(), newdir);
+        return new FireBall(b, newdir, attack);
     }
 
 

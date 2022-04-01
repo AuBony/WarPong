@@ -8,10 +8,10 @@ public class FireBall extends Entities {
     private final String castBy;
     private int damage;
 
-    public FireBall(Character c, double x, double y, String dir){
+    public FireBall(Warrior w, double x, double y, String dir){
         super();
         this.velocity = 1;
-        switch (c.getType()) {
+        switch (w.getType()) {
             case "J1" -> {
                 skinFireBall = new Image("Resources/Sprites/FBJ1.png");
                 this.heightEntities = 28;
@@ -26,7 +26,22 @@ public class FireBall extends Entities {
                 this.velocity = -5;
                 this.damage = 5;
             }
-            case "Boss" -> {
+            default ->{
+                skinFireBall = new Image("Resources/Sprites/dragon_100x79.png");
+                this.heightEntities = 79;
+                this.widthEntities = 100;
+            }
+        }
+        this.castBy = w.getType();
+        this.y = y - this.heightEntities/2;
+        this.x = x - this.widthEntities/2;
+    }
+
+    public FireBall(Boss b, String dir, String attack){
+        super();
+        this.velocity = 1;
+        switch(attack) {
+            case "classic" -> {
                 skinFireBall = new Image("Resources/Sprites/FBBoss.png");
                 this.heightEntities = 40;
                 this.widthEntities = 40;
@@ -37,15 +52,28 @@ public class FireBall extends Entities {
                     this.velocity = 2;
                 }
             }
+            case "special" -> {
+                skinFireBall = new Image("Resources/Sprites/FBBspe.png");
+                this.heightEntities = 60;
+                this.widthEntities = 60;
+                this.damage = 5;
+                if(dir.equals("G")){
+                    this.velocity = -3;
+                }else if(dir.equals("D")){
+                    this.velocity = 3;
+                }
+            }
             default ->{
                 skinFireBall = new Image("Resources/Sprites/dragon_100x79.png");
                 this.heightEntities = 79;
                 this.widthEntities = 100;
+                this.damage = 5;
+                this.velocity = 3;
             }
         }
-        this.castBy = c.getType();
-        this.y = y - this.heightEntities/2;
-        this.x = x - this.widthEntities/2;
+        this.castBy = b.getType();
+        this.y = b.getY() - this.heightEntities/2;
+        this.x = b.getX() - this.widthEntities/2;
     }
 
     //Get

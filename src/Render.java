@@ -114,8 +114,8 @@ public class Render extends Application {
                 //Génération des boules de feu
                 FireBall FBJ1 = ge.addFireBall(J1, J1.getX(), J1.getY());
                 FireBall FBJ2 = ge.addFireBall(J2, J2.getX(), J2.getY());
-                FireBall FBBG = ge.addFireBallBoss(boss, boss.getX(), boss.getY(), "G");
-                FireBall FBBD = ge.addFireBallBoss(boss, boss.getX(), boss.getY(), "D");
+                FireBall FBBG = ge.addFireBallBoss(boss, "G", "classic");
+                FireBall FBBD = ge.addFireBallBoss(boss, "D", "classic");
                 lfb.add(FBJ1);
                 lfb.add(FBJ2);
                 lfb.add(FBBG);
@@ -124,17 +124,22 @@ public class Render extends Application {
             if ((time % Math.floor((float) (4*cadence) / fps)) == 0){
 
                 int atkSpe = (int) Math.floor(1+ Math.random()*2);
-                if (atkSpe == 1){
-                    FireBall FBBGspe = ge.addSpecialFireBallBoss(boss, boss.getX(), boss.getY(), "G");
-                    lfb.add(FBBGspe);}
-                if (atkSpe == 2){
-                    FireBall FBBDspe = ge.addSpecialFireBallBoss(boss, boss.getX(), boss.getY(), "D");
-                    lfb.add(FBBDspe);}
-                if (atkSpe == 3){
-                    FireBall FBBDspe2 = ge.addSpecialFireBallBoss(boss, boss.getX(), boss.getY(), "D");
-                    FireBall FBBGspe2 = ge.addSpecialFireBallBoss(boss, boss.getX(), boss.getY(), "G");
-                    lfb.add(FBBGspe2);
-                    lfb.add(FBBDspe2);}
+                switch (atkSpe) {
+                    case 1 -> {
+                        FireBall FBBGspe = ge.addFireBallBoss(boss, "G", "special");
+                        lfb.add(FBBGspe);
+                    }
+                    case 2 -> {
+                        FireBall FBBDspe = ge.addFireBallBoss(boss, "D", "special");
+                        lfb.add(FBBDspe);
+                    }
+                    case 3 -> {
+                        FireBall FBBDspe = ge.addFireBallBoss(boss, "D", "special");
+                        FireBall FBBGspe = ge.addFireBallBoss(boss, "G", "special");
+                        lfb.add(FBBGspe);
+                        lfb.add(FBBDspe);
+                    }
+                }
             }
 
             //Hitbox
@@ -155,13 +160,11 @@ public class Render extends Application {
                 if(f.getCastBy().equals("Boss")) {
                     if (hitboxf.intersects(hitboxJ1)){
                         J1.setHp(J1.getHp() - f.getDamage());
-                        System.out.println("HP J1 : " + J1.getHp());
                         lfb.remove(f);
                         break;
                 }
                     if (hitboxf.intersects(hitboxJ2)){
                         J2.setHp(J2.getHp() - f.getDamage());
-                        System.out.println("HP J2 : " + J2.getHp());
                         lfb.remove(f);
                         break;
                     }
@@ -169,7 +172,6 @@ public class Render extends Application {
                 if(f.getCastBy().equals("J1") | f.getCastBy().equals("J2")){
                     if (hitboxf.intersects(hitboxBoss)){
                         boss.setHp(boss.getHp() - f.getDamage());
-                        System.out.println("HP Boss : " + boss.getHp());
                         lfb.remove(f);
                         break;
                     }
