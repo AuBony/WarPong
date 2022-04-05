@@ -16,24 +16,29 @@ public class Controls {
     }
 
     public static void moveWarrior(Warrior w, int Rheight){
-
         //J1
         if(w.getType().equals("J1") && w.Isalive()){
+            w.setSkin(w.getWalkingSkin());
             if (inputString.contains(KeyCode.S)){
                 w.move("DOWN", Rheight);
             }
-            if (inputString.contains(KeyCode.Z)){
+            else if (inputString.contains(KeyCode.Z)){
                 w.move("UP", Rheight);
             }
+            else{w.setSkin(w.getIdleSkin());}
         }
         //J2
         if(w.getType().equals("J2") && w.Isalive()){
+            w.setSkin(w.getWalkingSkin());
             if (inputString.contains(KeyCode.DOWN)){
                 w.move("DOWN", Rheight);
             }
-            if (inputString.contains(KeyCode.UP)){
+            else if (inputString.contains(KeyCode.UP)){
                 w.move("UP", Rheight);
             }
+            else{w.setSkin(w.getIdleSkin());}
         }
+
+
     }
 }

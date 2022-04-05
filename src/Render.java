@@ -161,7 +161,7 @@ public class Render extends Application {
 
             //DRAW
             gc.drawImage(background.getImage(), 0, 0, Rwidth, Rheight);
-            boss.drawEntity(gc);
+            boss.drawBoss(gc, time, 1000, fps);
             J1.drawEntity(gc);
             J2.drawEntity(gc);
             for (FireBall f : LFB.getLfb()) {
