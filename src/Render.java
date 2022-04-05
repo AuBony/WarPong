@@ -1,3 +1,4 @@
+import GameEngine.Controls;
 import GameEngine.Entity.Boss;
 import GameEngine.Entity.FireBall;
 import GameEngine.Entity.LFireBall;
@@ -21,14 +22,15 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import javax.naming.ldap.Control;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class Render extends Application {
 
     //Variables
-    int Rwidth = 1200;
-    int Rheight = 700;
+    final int Rwidth = 1200;
+    final int Rheight = 700;
     GE ge;
     public static ArrayList<KeyCode> inputString = new ArrayList<>();
     int choixMap;
@@ -68,16 +70,8 @@ public class Render extends Application {
         Image explo = new Image("Resources/Sprites/explo.png");
 
         //Controls
-        scene.setOnKeyPressed(e -> {
-                    KeyCode code = e.getCode();
-                    if (!inputString.contains(code))
-                        inputString.add(code);
-                }
-        );
-        scene.setOnKeyReleased(e -> {
-            KeyCode code = e.getCode();
-            inputString.remove(code);
-        });
+        scene.setOnKeyPressed(e-> Controls.input(e.getCode()));
+        scene.setOnKeyReleased(e-> Controls.output(e.getCode()));
 
         // ADD ENTITIES //
         ge.init();
@@ -103,7 +97,7 @@ public class Render extends Application {
                     J1.setHp(J1.getHp() - 1);
                     J2.setHp(J2.getHp() + 1);
                 }
-                //Boss Classic attack
+                //Attack
                 if (J1.Isalive()) {
                     FireBall FBJ1 = ge.addFireBall(J1, J1.getX(), J1.getY());
                     LFB.getLfb().add(FBJ1);
@@ -142,18 +136,18 @@ public class Render extends Application {
             //Mvt Fireball
             LFB.moveAllFireBall(J1, J2, boss, Rwidth, hitboxBoss, hitboxJ1, hitboxJ2);
             //Mvt Warrior
-            if (inputString.contains(KeyCode.S) && J1.Isalive()) {
-                J1.move("DOWN", Rheight);
+            try {
+                Controls.moveWarrior(J1, Rheight);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            if (inputString.contains(KeyCode.Z) && J1.Isalive()) {
-                J1.move("UP", Rheight);
+
+            try {
+                Controls.moveWarrior(J2, Rheight);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            if (inputString.contains(KeyCode.DOWN) && J2.Isalive()) {
-                J2.move("DOWN", Rheight);
-            }
-            if (inputString.contains(KeyCode.UP) && J2.Isalive()) {
-                J2.move("UP", Rheight);
-            }
+
             //Mvt boss
             boss.move(Rheight);
 
