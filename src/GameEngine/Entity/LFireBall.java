@@ -1,5 +1,6 @@
 package GameEngine.Entity;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,5 +60,12 @@ public class LFireBall extends Entities{
                 }
             }
         }
+    }
+
+    public void drawFireball(GraphicsContext gc){
+        for (FireBall fireBall : this.lfb) {
+            fireBall.drawEntity(gc);
+        }
+
     }
 }

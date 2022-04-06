@@ -94,4 +94,10 @@ public class Warrior extends Character {
             this.y = this.y - this.velocity;
         }
     }
+
+    public void checkIsAlive(){
+        if(this.hp <= 0){
+            this.isalive = false;
+        }
+    }
 }

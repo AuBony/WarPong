@@ -136,39 +136,22 @@ public class Render extends Application {
             //Mvt Fireball
             LFB.moveAllFireBall(J1, J2, boss, Rwidth, hitboxBoss, hitboxJ1, hitboxJ2);
             //Mvt Warrior
-            try {
-                Controls.moveWarrior(J1, Rheight);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            try {
-                Controls.moveWarrior(J2, Rheight);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
+            Controls.moveWarrior(J1, Rheight);
+            Controls.moveWarrior(J2, Rheight);
             //Mvt boss
             boss.move(Rheight);
 
             //Check is alive
-            if (J1.getHp() <= 0) {
-                J1.setIsalive(false);
-            }
-            if (J2.getHp() <= 0) {
-                J2.setIsalive(false);
-            }
+            J1.checkIsAlive();
+            J2.checkIsAlive();
 
             //DRAW
             gc.drawImage(background.getImage(), 0, 0, Rwidth, Rheight);
             boss.drawBoss(gc, time, 10, fps);
             J1.drawEntity(gc);
             J2.drawEntity(gc);
-            for (FireBall f : LFB.getLfb()) {
-                f.drawEntity(gc);
-            }
+            LFB.drawFireball(gc);
             stage.setTitle("J1 : " + J1.getHp() + "     " + boss.getHp() + "     " + J2.getHp() + " : J2");
-
 
             //FINISH
             if (boss.getHp() <= J1.getWarriorDamage()) {

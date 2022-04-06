@@ -15,7 +15,7 @@ public class Controls {
         inputString.remove(code);
     }
 
-    public static void moveWarrior(Warrior w, int Rheight){
+    public static void movementWarrior(Warrior w, int Rheight){
         //J1
         if(w.getType().equals("J1") && w.Isalive()){
             w.setSkin(w.getWalkingSkin());
@@ -38,7 +38,12 @@ public class Controls {
             }
             else{w.setSkin(w.getIdleSkin());}
         }
-
-
+    }
+    public static void moveWarrior(Warrior w, int Rheight){
+        try{
+            movementWarrior(w, Rheight);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
