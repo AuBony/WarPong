@@ -55,8 +55,8 @@ public class Boss extends Character {
 
     public void drawBoss(GraphicsContext gc, long time, int cadence, int fps) {
 
-        if(this.hp < (float) maxLife/10){
-            if(time % Math.floor((float) cadence/fps/(this.hp + 1)) == 0){
+        if(this.hp < (float) maxLife/4){
+            if(time % Math.floor((float) cadence/fps * this.hp) == 0){
                 this.skin = this.DeadSkin;
             }else{this.skin = this.IdleSkin;}
         }
