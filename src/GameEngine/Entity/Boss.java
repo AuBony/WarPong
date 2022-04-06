@@ -7,11 +7,11 @@ public class Boss extends Character {
 
     //Variables
     private boolean monte = true;
-    private final int maxLife = 200;
 
     //Constructor
     public Boss(int Rwidth, int Rheight){
         super();
+        this.maxLife = 200;
         this.hp = maxLife;
         this.velocity = 5;
         this.type = "Boss";

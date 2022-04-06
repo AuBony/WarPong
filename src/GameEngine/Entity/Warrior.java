@@ -14,7 +14,8 @@ public class Warrior extends Character {
     public Warrior(int Rwidth, int Rheight, String type){
         super();
         this.velocity = 10;
-        this.hp = 10;
+        this.maxLife = 10;
+        this.hp = maxLife;
         this.y = (double) Rheight/2;
         this.type = type;
         this.isalive = true;

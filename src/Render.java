@@ -21,8 +21,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
-import javax.naming.ldap.Control;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -82,7 +80,7 @@ public class Render extends Application {
 
         loop = new Timeline(new KeyFrame(Duration.millis(fps), arg -> {
             time += 1;
-            //Hitbox
+            //Hit box
             Rectangle2D hitboxBoss = boss.createHitbox();
             Rectangle2D hitboxJ1 = J1.createHitbox();
             Rectangle2D hitboxJ2 = J2.createHitbox();
@@ -152,6 +150,9 @@ public class Render extends Application {
             J2.drawEntity(gc);
             LFB.drawFireball(gc);
             stage.setTitle("J1 : " + J1.getHp() + "     " + boss.getHp() + "     " + J2.getHp() + " : J2");
+            J1.drawLifeBar(gc);
+            J2.drawLifeBar(gc);
+            boss.drawLifeBar(gc);
 
             //FINISH
             if (boss.getHp() <= J1.getWarriorDamage()) {
