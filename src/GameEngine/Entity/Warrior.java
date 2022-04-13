@@ -8,6 +8,7 @@ public class Warrior extends Character {
     //Variables
     private boolean isalive;
     private final Image DeadSkin;
+    private int scoreW;
 
     //Constructor
     public Warrior(int Rwidth, int Rheight, String type){
@@ -50,6 +51,8 @@ public class Warrior extends Character {
     public boolean Isalive() {return isalive;}
     public int getWarriorDamage() {
         return 5;}
+    public int getScoreW() {return scoreW;}
+    public void setScoreW(int score) {this.scoreW = score;}
 
     //Set
     public void setIsalive(boolean isalive) {

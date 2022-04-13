@@ -14,14 +14,14 @@ public class FireBall extends Entities {
                 skin = new Image("Resources/Sprites/FBJ1.png");
                 this.heightEntities = 28;
                 this.widthEntities = 36;
-                this.velocity = 10;
+                this.velocity = 14;
                 this.damage = w.getWarriorDamage();
             }
             case "J2" -> {
                 skin = new Image("Resources/Sprites/FBJ2.png");
                 this.heightEntities = 28;
                 this.widthEntities = 36;
-                this.velocity = -10;
+                this.velocity = -14;
                 this.damage = w.getWarriorDamage();
             }
             default ->{
@@ -43,11 +43,11 @@ public class FireBall extends Entities {
                 skin = new Image("Resources/Sprites/FBBoss.png");
                 this.heightEntities = 40;
                 this.widthEntities = 40;
-                this.damage = 2;
+                this.damage = 4;
                 if(dir.equals("G")){
                     this.velocity = -2;
                 }else if(dir.equals("D")){
-                    this.velocity = 3;
+                    this.velocity = 2;
                 }
             }
             case "special" -> {
@@ -56,9 +56,9 @@ public class FireBall extends Entities {
                 this.widthEntities = 80;
                 this.damage = 5;
                 if(dir.equals("G")){
-                    this.velocity = -8;
+                    this.velocity = -10;
                 }else if(dir.equals("D")){
-                    this.velocity = 8;
+                    this.velocity = 10;
                 }
             }
             default ->{
@@ -81,5 +81,4 @@ public class FireBall extends Entities {
     public int getDamage() {
         return damage;
     }
-
 }

@@ -15,6 +15,10 @@ public class LFireBall extends Entities{
     public List<FireBall> getLfb() {
         return lfb;
     }
+    public int getScore(Warrior w) {
+            return w.getScoreW();
+    }
+
 
     //Method
     /**
@@ -53,11 +57,17 @@ public class LFireBall extends Entities{
                 }
             }else if (f.getCastBy().equals("J1") | f.getCastBy().equals("J2")){
                 if (hitboxf.intersects(hitboxBoss)){
+                    if (f.getCastBy().equals("J1")){J1.setScoreW(J1.getScoreW() + f.getDamage());}
+                    if (f.getCastBy().equals("J2")){J2.setScoreW(J2.getScoreW() + f.getDamage());}
+                    System.out.println(getScore(J1));
+                    System.out.println(getScore(J2));
                     b.setHp(b.getHp() - f.getDamage());
                     this.lfb.remove(f);
                     break;
                 }
             }
+
         }
     }
-}
+
+    }

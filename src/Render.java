@@ -10,6 +10,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
+import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -17,12 +18,16 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
+
+import static javafx.scene.paint.Color.*;
 
 public class Render extends Application {
 
@@ -62,6 +67,14 @@ public class Render extends Application {
         ge = new GE(Rwidth, Rheight);
         choixMap = (int) Math.floor(1 + Math.random() * 2);
         Background background = new Background(choixMap);
+
+        // ADD ENTITIES //
+        ge.init();
+        Warrior J1 = ge.getJ1();
+        Warrior J2 = ge.getJ2();
+        Boss boss = ge.getBoss();
+        LFireBall LFB = new LFireBall();
+
         FinishText Ftext = new FinishText(Rwidth, Rheight);
         root.getChildren().addAll(Ftext.getDefeat(), Ftext.getWin());
         Retry retry = new Retry();
@@ -78,13 +91,6 @@ public class Render extends Application {
             KeyCode code = e.getCode();
             inputString.remove(code);
         });
-
-        // ADD ENTITIES //
-        ge.init();
-        Warrior J1 = ge.getJ1();
-        Warrior J2 = ge.getJ2();
-        Boss boss = ge.getBoss();
-        LFireBall LFB = new LFireBall();
 
         loop = new Timeline(new KeyFrame(Duration.millis(fps), arg -> {
             time += 1;
@@ -187,6 +193,29 @@ public class Render extends Application {
                 try {
                     TimeUnit.MILLISECONDS.sleep(1000);
                     Ftext.getWin().setVisible(true);
+                    Text score1 = new Text("" + J1.getScoreW());
+                    Text score2 = new Text(""+ J2.getScoreW());
+                    score1.setFont(Font.font("Consola", 30));
+                    score1.setFill(CORNFLOWERBLUE);
+                    score1.setTextOrigin(VPos.CENTER);
+                    score1.setLayoutX(510);
+                    score1.setLayoutY(135);
+                    score1.setVisible(true);
+                    score2.setFont(Font.font("Consola", 30));
+                    score2.setFill(RED);
+                    score2.setTextOrigin(VPos.CENTER);
+                    score2.setLayoutX(610);
+                    score2.setLayoutY(135);
+                    score2.setVisible(true);
+                    Rectangle scoreJ1 = new Rectangle((500-(((double)J1.getScoreW()/200)*400)),120,((double)J1.getScoreW()/200)*400, 30);
+                    scoreJ1.setArcHeight(5);
+                    scoreJ1.setArcWidth(5);
+                    scoreJ1.setFill(CORNFLOWERBLUE);
+                    Rectangle scoreJ2 = new Rectangle(650,120,((double)J2.getScoreW()/200)*400, 30);
+                    scoreJ2.setArcHeight(5);
+                    scoreJ2.setArcWidth(5);
+                    scoreJ2.setFill(RED);
+                    root.getChildren().addAll(score1, score2, scoreJ1, scoreJ2);
                     this.loop.stop();
                     Image winD = new Image("Resources/Sprites/win.png");
                     gc.drawImage(winD, 0, 0, Rwidth, Rheight);
@@ -201,6 +230,7 @@ public class Render extends Application {
             //Defeat
             if (J1.getHp() <= 0 && J2.getHp() <= 0) {
                 Ftext.getDefeat().setVisible(true);
+                Ftext.displayScore(Rwidth, Rheight, J1.getScoreW(), J2.getScoreW());
                 this.loop.stop();
                 Image defeatD = new Image("Resources/Sprites/defeat.png");
                 gc.drawImage(defeatD, 0, 0, Rwidth, Rheight);
