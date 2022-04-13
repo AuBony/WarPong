@@ -1,5 +1,6 @@
 package GameEngine.Entity;
 
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 public class Boss extends Character {
@@ -10,14 +11,17 @@ public class Boss extends Character {
     //Constructor
     public Boss(int Rwidth, int Rheight){
         super();
-        this.hp = 200;
+        this.maxLife = 200;
+        this.hp = maxLife;
         this.velocity = 5;
         this.type = "Boss";
         this.x = (double) Rwidth/2 - 100;
         this.y = (double) Rheight/2 - 79;
         this.widthEntities = 200;
         this.heightEntities = 158;
-        this.skin = new Image("Resources/Sprites/dragon_100x79.png");
+        this.IdleSkin = new Image("Resources/Sprites/dragon_100x79.png");
+        this.DeadSkin = new Image("Resources/Sprites/dragon_transp.png");
+        this.skin = IdleSkin;
     }
 
     //Get
@@ -49,5 +53,13 @@ public class Boss extends Character {
         }
     }
 
+    public void drawBoss(GraphicsContext gc, long time, int cadence, int fps) {
 
+        if(this.hp < (float) maxLife/4){
+            if(time % Math.floor((float) cadence/fps * this.hp) == 0){
+                this.skin = this.DeadSkin;
+            }else{this.skin = this.IdleSkin;}
+        }
+        drawEntity(gc);
+    }
 }

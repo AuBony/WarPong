@@ -9,26 +9,33 @@ public class Warrior extends Character {
     private boolean isalive;
     private final Image DeadSkin;
     private int scoreW;
+    private final Image WalkingSkin;
+
 
     //Constructor
     public Warrior(int Rwidth, int Rheight, String type){
         super();
         this.velocity = 10;
-        this.hp = 10;
+        this.maxLife = 10;
+        this.hp = maxLife;
         this.y = (double) Rheight/2;
         this.type = type;
         this.isalive = true;
         switch (type) {
             case "J1" -> {
-                this.skin = new Image("Resources/Sprites/thomasus.png");
+                this.IdleSkin = new Image("Resources/Sprites/thomasus.png");
                 this.DeadSkin = new Image("Resources/Sprites/dead_thomasus.png");
+                this.WalkingSkin = new Image("Resources/Sprites/walking_thomasus.png");
+                this.skin = this.IdleSkin;
                 this.setHeightEntities(70);
                 this.setWidthEntities(60);
                 this.x = 10;
             }
             case "J2" -> {
-                this.skin = new Image("Resources/Sprites/odreya.png");
+                this.IdleSkin = new Image("Resources/Sprites/odreya.png");
                 this.DeadSkin = new Image("Resources/Sprites/dead_odreya.png");
+                this.WalkingSkin = new Image("Resources/Sprites/walking_odreya.png");
+                this.skin = this.IdleSkin;
                 this.setHeightEntities(70);
                 this.setWidthEntities(52);
                 this.x = Rwidth - 60;
@@ -40,8 +47,11 @@ public class Warrior extends Character {
                 this.setWidthEntities(100);
                 this.x = 79;
                 this.setY(100);
+                WalkingSkin = null;
+                IdleSkin = null;
             }
         }
+
     }
 
     //Get
@@ -53,6 +63,9 @@ public class Warrior extends Character {
         return 5;}
     public int getScoreW() {return scoreW;}
     public void setScoreW(int score) {this.scoreW = score;}
+    public int getWarriorDamage() {return 5;}
+    public Image getIdleSkin() {return IdleSkin;}
+    public Image getWalkingSkin() {return WalkingSkin;}
 
     //Set
     public void setIsalive(boolean isalive) {
@@ -86,6 +99,12 @@ public class Warrior extends Character {
         }
         if(this.y > 0 && dir.equals("UP")){
             this.y = this.y - this.velocity;
+        }
+    }
+
+    public void checkIsAlive(){
+        if(this.hp <= 0){
+            this.isalive = false;
         }
     }
 }

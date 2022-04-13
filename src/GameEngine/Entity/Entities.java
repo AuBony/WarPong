@@ -45,6 +45,7 @@ public abstract class Entities {
         this.widthEntities = widthEntities;
     }
     public void setVelocity(double velocity) {this.velocity = velocity;}
+    public void setSkin(Image skin) {this.skin = skin;}
 
     //Method
     /**

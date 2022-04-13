@@ -1,3 +1,4 @@
+import GameEngine.Controls;
 import GameEngine.Entity.Boss;
 import GameEngine.Entity.FireBall;
 import GameEngine.Entity.LFireBall;
@@ -23,7 +24,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -32,8 +32,8 @@ import static javafx.scene.paint.Color.*;
 public class Render extends Application {
 
     //Variables
-    int Rwidth = 1200;
-    int Rheight = 700;
+    final int Rwidth = 1200;
+    final int Rheight = 700;
     GE ge;
     public static ArrayList<KeyCode> inputString = new ArrayList<>();
     int choixMap;
@@ -81,20 +81,12 @@ public class Render extends Application {
         Image explo = new Image("Resources/Sprites/explo.png");
 
         //Controls
-        scene.setOnKeyPressed(e -> {
-                    KeyCode code = e.getCode();
-                    if (!inputString.contains(code))
-                        inputString.add(code);
-                }
-        );
-        scene.setOnKeyReleased(e -> {
-            KeyCode code = e.getCode();
-            inputString.remove(code);
-        });
+        scene.setOnKeyPressed(e-> Controls.input(e.getCode()));
+        scene.setOnKeyReleased(e-> Controls.output(e.getCode()));
 
         loop = new Timeline(new KeyFrame(Duration.millis(fps), arg -> {
             time += 1;
-            //Hitbox
+            //Hit box
             Rectangle2D hitboxBoss = boss.createHitbox();
             Rectangle2D hitboxJ1 = J1.createHitbox();
             Rectangle2D hitboxJ2 = J2.createHitbox();
@@ -109,7 +101,7 @@ public class Render extends Application {
                     J1.setHp(J1.getHp() - 1);
                     J2.setHp(J2.getHp() + 1);
                 }
-                //Boss Classic attack
+                //Attack
                 if (J1.Isalive()) {
                     FireBall FBJ1 = ge.addFireBall(J1, J1.getX(), J1.getY());
                     LFB.getLfb().add(FBJ1);
@@ -148,39 +140,25 @@ public class Render extends Application {
             //Mvt Fireball
             LFB.moveAllFireBall(J1, J2, boss, Rwidth, hitboxBoss, hitboxJ1, hitboxJ2);
             //Mvt Warrior
-            if (inputString.contains(KeyCode.S) && J1.Isalive()) {
-                J1.move("DOWN", Rheight);
-            }
-            if (inputString.contains(KeyCode.Z) && J1.Isalive()) {
-                J1.move("UP", Rheight);
-            }
-            if (inputString.contains(KeyCode.DOWN) && J2.Isalive()) {
-                J2.move("DOWN", Rheight);
-            }
-            if (inputString.contains(KeyCode.UP) && J2.Isalive()) {
-                J2.move("UP", Rheight);
-            }
+            Controls.moveWarrior(J1, Rheight);
+            Controls.moveWarrior(J2, Rheight);
             //Mvt boss
             boss.move(Rheight);
 
             //Check is alive
-            if (J1.getHp() <= 0) {
-                J1.setIsalive(false);
-            }
-            if (J2.getHp() <= 0) {
-                J2.setIsalive(false);
-            }
+            J1.checkIsAlive();
+            J2.checkIsAlive();
 
             //DRAW
             gc.drawImage(background.getImage(), 0, 0, Rwidth, Rheight);
-            boss.drawEntity(gc);
+            boss.drawBoss(gc, time, 10, fps);
             J1.drawEntity(gc);
             J2.drawEntity(gc);
-            for (FireBall f : LFB.getLfb()) {
-                f.drawEntity(gc);
-            }
+            LFB.drawFireball(gc);
             stage.setTitle("J1 : " + J1.getHp() + "     " + boss.getHp() + "     " + J2.getHp() + " : J2");
-
+            J1.drawLifeBar(gc);
+            J2.drawLifeBar(gc);
+            boss.drawLifeBar(gc);
 
             //FINISH
             if (boss.getHp() <= J1.getWarriorDamage()) {

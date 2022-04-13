@@ -15,7 +15,6 @@ public class Retry extends Application {
     }
 
     //Method
-
     /**
      * 2ndary start, used for tests.
      * @param stage the stage
