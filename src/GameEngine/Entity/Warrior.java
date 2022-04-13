@@ -59,8 +59,6 @@ public class Warrior extends Character {
         return type;
     }
     public boolean Isalive() {return isalive;}
-    public int getWarriorDamage() {
-        return 5;}
     public int getScoreW() {return scoreW;}
     public void setScoreW(int score) {this.scoreW = score;}
     public int getWarriorDamage() {return 5;}

@@ -78,7 +78,6 @@ public class LFireBall extends Entities {
 
         }
     }
-}
 
     public void drawFireball(GraphicsContext gc){
         for (FireBall fireBall : this.lfb) {
